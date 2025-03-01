@@ -99,6 +99,9 @@ vim.keymap.set("n", "<A-Down>", ":m+<CR>==", { desc = "Move line down" })
 vim.keymap.set("n", "<A-Up>", ":m-2<CR>==", { desc = "Move line up" })
 
 
+-- vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+vim.keymap.set("v", "<C-r>", "\"hy:%s/<C-r>h//gc<left><left><left>", { desc = "Replace all selected text" })
+
 -------------------------------------------------------------------------------
 --
 -- hotkeys
