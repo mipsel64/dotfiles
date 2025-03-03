@@ -3,8 +3,8 @@ theme = GruvboxDarkHard
 bold-is-bright = true
 
 # Font settings
-font-family = "BerkeleyMono Nerd Font"
-font-size = 15
+font-family = "BerkeleyMono Nerd Font Mono"
+font-size = 16
 
 # Setting MacOs Titlebar 
 macos-titlebar-style = native
