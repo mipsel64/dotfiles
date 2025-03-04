@@ -21,3 +21,13 @@ grapheme-width-method = "unicode"
 # Enable link on hover (MacOS: Cmd, Linux: Ctrl)
 # Note: Under Tmux, require Shift + Cmd to open link
 link-url = true
+
+# Keybindings
+
+macos-option-as-alt = true
+
+# This doesn't help. Aerospace treats each ghostty tab as a separate window
+# lead to when press alt+h/l, aerospace just change to the next/previous tab
+# instead of select to the next window.
+#keybind = alt+h=unbind
+#keybind = alt+l=unbind
