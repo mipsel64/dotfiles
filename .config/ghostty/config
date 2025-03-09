@@ -4,7 +4,7 @@ bold-is-bright = true
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
-font-size = 16
+font-size = 15
 
 # Setting MacOs Titlebar 
 macos-titlebar-style = native
