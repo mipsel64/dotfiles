@@ -3,8 +3,9 @@ theme = "GruvboxDarkHard"
 bold-is-bright = true
 
 # Font settings
-font-family = "FiraCode Nerd Font"
+font-family = "JetbrainsMono Nerd Font"
 font-size = 15
+font-thicken = true
 
 # Setting MacOs Titlebar 
 macos-titlebar-style = native
