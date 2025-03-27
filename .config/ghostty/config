@@ -3,8 +3,8 @@ theme = "iTerm2 Tango Dark"
 bold-is-bright = true
 
 # Font settings
-font-family = "CaskaydiaCove Nerd Font Mono"
-font-size = 16
+font-family = "FiraCode Nerd Font"
+font-size = 15
 font-thicken = true
 
 # Setting MacOs Titlebar 
