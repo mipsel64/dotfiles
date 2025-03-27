@@ -71,6 +71,8 @@ bind \cx\ce edit_command_buffer
 
 # brew setup
 if test -d /home/linuxbrew/.linuxbrew # Linux
+    set -xg HOMEBREW_NO_AUTO_UPDATE "true"
+
 	set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew"
 	set -gx HOMEBREW_CELLAR "$HOMEBREW_PREFIX/Cellar"
 	set -gx HOMEBREW_REPOSITORY "$HOMEBREW_PREFIX/Homebrew"
