@@ -243,3 +243,7 @@ run = 'move-node-to-workspace 1' # Work
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
 run = 'move-node-to-workspace 4' # Notes / Finder
+
+[[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['layout floating', 'move-node-to-workspace 3']
