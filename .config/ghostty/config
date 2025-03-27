@@ -16,7 +16,7 @@ cursor-style-blink = true
 shell-integration-features = no-cursor
 
 # Cell Height
-adjust-cell-height = 10%
+adjust-cell-height = 20%
 grapheme-width-method = "unicode"
 
 # Enable link on hover (MacOS: Cmd, Linux: Ctrl)
