@@ -270,13 +270,13 @@ require("lazy").setup {
     -- main color scheme
     { "rktjmp/lush.nvim" },
     {
-        "metalelf0/jellybeans-nvim",
+        "RRethy/base16-nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme jellybeans-nvim]]
+            vim.cmd [[colorscheme default-dark]]
             -- XXX: hi Normal ctermbg=NONE
             -- Make comments more prominent -- they are important.
             local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
