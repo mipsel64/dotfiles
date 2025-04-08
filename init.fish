@@ -62,6 +62,8 @@ if test -d $HOME/go/bin
   fish_add_path $HOME/go/bin
 end
 
+eval $(ssh-agent -c) > /dev/null
+
 # color
 set -U fish_color_command green
 set -U fish_color_param white
