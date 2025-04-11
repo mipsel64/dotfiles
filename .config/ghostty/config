@@ -24,6 +24,8 @@ selection-foreground = #d8d8d8
 
 bold-is-bright = true
 
+window-theme = "system"
+
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
 font-size = 15
