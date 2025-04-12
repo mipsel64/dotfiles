@@ -9,7 +9,12 @@ bind C-g resize-pane -Z
 bind-key C-f last-window
 
 #setw -g mode-keys vi
-#setw -g xterm-keys on
+setw -g xterm-keys on
+set -s extended-keys on
+set -as terminal-features 'xterm*:extkeys'
+bind-key -n C-Enter send-keys C-Enter
+bind-key -n S-Enter send-keys S-Enter
+
 # Automatically set window title
 set-window-option -g automatic-rename on
 set-option -g set-titles on
@@ -89,6 +94,7 @@ bind C-h select-pane -L
 bind C-j select-pane -D
 bind C-k select-pane -U
 bind C-l select-pane -R
+
 
 
 # Remove SSH_AUTH_SOCK to disable tmux automatically resetting the variable
