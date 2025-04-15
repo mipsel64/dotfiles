@@ -8,12 +8,7 @@ bind C-g resize-pane -Z
 # toggle last window by hitting again C-f
 bind-key C-f last-window
 
-#setw -g mode-keys vi
 setw -g xterm-keys on
-set -s extended-keys on
-set -as terminal-features 'xterm*:extkeys'
-bind-key -n C-Enter send-keys C-Enter
-bind-key -n S-Enter send-keys S-Enter
 
 # Automatically set window title
 set-window-option -g automatic-rename on
@@ -41,7 +36,7 @@ set -g display-panes-time 2000
 set -g display-time 4000
 
 # {n}vim compability
-set -g default-terminal "tmux-256color"
+set -g default-terminal "xterm-ghostty"
 set -ag terminal-overrides ",$TERM:RGB"
 
 # bind -n C-l send-keys -R C-l \; clear-history

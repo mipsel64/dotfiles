@@ -215,6 +215,10 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 3' # Chat
 
 [[on-window-detected]]
+if.app-id = 'com.hnc.Discord'
+run = ['move-node-to-workspace 3']
+
+[[on-window-detected]]
 if.window-title-regex-substring = '^(Bitwarden\s-\s.*|Task Manager)$'
 if.app-id = 'com.google.Chrome'
 run = ['layout floating']
@@ -244,6 +248,3 @@ run = 'move-node-to-workspace 1' # Work
 if.app-id = 'com.apple.Notes'
 run = 'move-node-to-workspace 4' # Notes / Finder
 
-[[on-window-detected]]
-if.app-id = 'com.hnc.Discord'
-run = ['layout floating', 'move-node-to-workspace 3']
