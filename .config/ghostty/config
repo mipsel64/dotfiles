@@ -22,7 +22,8 @@
 #selection-background = #383838
 #selection-foreground = #d8d8d8
 #
-theme = "DimmedMonokai"
+theme = "Operator Mono Dark"
+cursor-color = #d8d8d8
 
 bold-is-bright = true
 
