@@ -25,8 +25,8 @@ vim.opt.foldlevelstart = 99
 -- vim.opt.timeoutlen = 300
 -- keep more context on screen while scrolling
 vim.opt.scrolloff = 2
--- never show me line breaks if they're not there
-vim.opt.wrap = false
+-- enable wrap lines
+vim.opt.wrap = true
 -- always draw sign column. prevents buffer moving when adding/deleting sign
 vim.opt.signcolumn = "yes"
 -- sweet sweet relative line numbers
@@ -78,10 +78,10 @@ vim.keymap.set("v", "<C-c>", "\"+y<CR>", { desc = "Copy selected text to system 
 
 -- Allow clipboard copy paste in neovim
 vim.g.neovide_input_use_logo = 1
-vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true})
-vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true})
-vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true})
-vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true})
+vim.api.nvim_set_keymap('', '<D-v>', '+p<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('!', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('t', '<D-v>', '<C-R>+', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<D-v>', '<C-R>+', { noremap = true, silent = true })
 
 -- highlight cursorline
 vim.opt.cursorline = true
@@ -277,13 +277,17 @@ require("lazy").setup {
     -- main color scheme
     { "rktjmp/lush.nvim" },
     {
-        "RRethy/base16-nvim",
+        "cpea2506/one_monokai.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
+            require("one_monokai").setup({
+                transparent = true
+            })
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme default-dark]]
+            vim.cmd [[colorscheme one_monokai]]
+
             -- XXX: hi Normal ctermbg=NONE
             -- Make comments more prominent -- they are important.
             local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })

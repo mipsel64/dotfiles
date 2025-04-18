@@ -236,13 +236,13 @@ run = 'move-node-to-workspace 4' # Notes / Finder
 if.app-name-regex-substring= 'Finder'
 run = ['layout floating', 'move-node-to-workspace 4'] # Notes/Finder
 
-[[on-window-detected]]
-if.app-id = 'com.electron.dockerdesktop'
-run = 'move-node-to-workspace 1' # Work
-
-[[on-window-detected]]
-if.app-id = 'com.microsoft.VSCode'
-run = 'move-node-to-workspace 1' # Work
+#[[on-window-detected]]
+#if.app-id = 'com.electron.dockerdesktop'
+#run = 'move-node-to-workspace 1' # Work
+#
+#[[on-window-detected]]
+#if.app-id = 'com.microsoft.VSCode'
+#run = 'move-node-to-workspace 1' # Work
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
