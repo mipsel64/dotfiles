@@ -282,7 +282,10 @@ require("lazy").setup {
         priority = 1000, -- load first
         config = function()
             require("one_monokai").setup({
-                transparent = true
+                transparent = false,
+                colors = {
+                    bg = "#262626",
+                }
             })
             vim.o.termguicolors = true
             vim.o.background = "dark"
