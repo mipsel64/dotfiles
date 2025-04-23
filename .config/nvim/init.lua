@@ -277,19 +277,13 @@ require("lazy").setup {
     -- main color scheme
     { "rktjmp/lush.nvim" },
     {
-        "cpea2506/one_monokai.nvim",
+        "RRethy/base16-nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
-            require("one_monokai").setup({
-                transparent = false,
-                colors = {
-                    bg = "#262626",
-                }
-            })
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme one_monokai]]
+            vim.cmd [[colorscheme base16-default-dark]]
 
             -- XXX: hi Normal ctermbg=NONE
             -- Make comments more prominent -- they are important.
@@ -351,6 +345,18 @@ require("lazy").setup {
             )
         end,
     },
+    { -- Adds git related signs to the gutter, as well as utilities for managing changes
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+        },
+    },
     -- quick navigation
     {
         "ggandor/leap.nvim",
@@ -389,32 +395,47 @@ require("lazy").setup {
 
     -- LSP
     {
+        "williamboman/mason.nvim",
+        config = function()
+            require "mason".setup {}
+        end
+
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            require("mason-lspconfig").setup {
+                ensure_installed = { "lua_ls", "rust_analyzer" },
+            }
+        end
+    },
+    {
         "neovim/nvim-lspconfig",
         config = function()
             -- Setup language servers.
             local lspconfig = require "lspconfig"
 
             -- Rust
-            lspconfig.rust_analyzer.setup {
-                -- Server-specific settings. See `:help lspconfig-setup`
-                settings = {
-                    ["rust-analyzer"] = {
-                        cargo = {
-                            allFeatures = true,
-                        },
-                        imports = {
-                            group = {
-                                enable = false,
-                            },
-                        },
-                        completion = {
-                            postfix = {
-                                enable = false,
-                            },
-                        },
-                    },
-                },
-            }
+            --lspconfig.rust_analyzer.setup {
+            --    -- Server-specific settings. See `:help lspconfig-setup`
+            --    settings = {
+            --        ["rust-analyzer"] = {
+            --            cargo = {
+            --                allFeatures = true,
+            --            },
+            --            imports = {
+            --                group = {
+            --                    enable = false,
+            --                },
+            --            },
+            --            completion = {
+            --                postfix = {
+            --                    enable = false,
+            --                },
+            --            },
+            --        },
+            --    },
+            --}
 
             -- Go
             lspconfig.gopls.setup {}
@@ -515,6 +536,21 @@ require("lazy").setup {
                 end,
             })
         end,
+    },
+    {
+        'mrcjkb/rustaceanvim',
+        version = '^6',
+        lazy = false,
+        config = function()
+            local bufnr = vim.api.nvim_get_current_buf()
+            vim.keymap.set("n", "<leader>a", function()
+                vim.cmd.RustLsp('codeAction')
+            end, { silent = true, buffer = bufnr })
+
+            vim.keymap.set("n", "K", function()
+                vim.cmd.RustLsp({ 'hover', 'action' })
+            end, { silent = true, buffer = bufnr })
+        end
     },
     -- LSP-based code-completion
     {
