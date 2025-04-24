@@ -6,7 +6,6 @@ set -xg LANG en_US.UTF-8
 set -xg USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -xg CONFIG_DIR $HOME/.config
 
-# disable greeting message
 set -g fish_greeting
 
 alias v="nvim"
@@ -38,15 +37,14 @@ alias reset-gpg="gpgconf --kill gpg-agent"
 alias glp="git pull && git push"
 alias sd="sudo shutdown -h"
 alias todev='ssh dev.local'
-
 alias tg="terragrunt"
 alias tf="terraform"
 
-# Minikube
+## Minikube
 alias mkk="minikube kubectl --"
 alias mks="minikube start"
 
-# Git
+## Git
 alias gst="git status"
 alias gl="git pull"
 alias gp="git push"
@@ -64,16 +62,16 @@ end
 
 eval $(ssh-agent -c) > /dev/null
 
-# color
+## color
 set -U fish_color_command green
 set -U fish_color_param white
 
-# binding
+## binding
 bind \cx\ce edit_command_buffer
 
+## brew setup
+# Disable brew auto update
 set -xg HOMEBREW_NO_AUTO_UPDATE "1"
-
-# brew setup
 if test -d /home/linuxbrew/.linuxbrew # Linux
 	set -gx HOMEBREW_PREFIX "/home/linuxbrew/.linuxbrew"
 	set -gx HOMEBREW_CELLAR "$HOMEBREW_PREFIX/Cellar"
@@ -92,30 +90,30 @@ fish_add_path -gP "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin";
 ! set -q MANPATH; and set MANPATH ''; set -gx MANPATH "$HOMEBREW_PREFIX/share/man" $MANPATH;
 ! set -q INFOPATH; and set INFOPATH ''; set -gx INFOPATH "$HOMEBREW_PREFIX/share/info" $INFOPATH;
 
-# cargo
+## cargo
 if test -f $HOME/.cargo/env.fish
   source "$HOME/.cargo/env.fish"
 end
 
 
-# cdgd -- change directory to git directory
-# if no input => go to the repo root
-# otherwise, go to the directory
+## [C]hange [D]irectory to [G]it [D]irectory
+## if no input => go to the repo root
+## otherwise, go to the directory
 function cdgd
-  set repo_root $(git rev-parse --show-toplevel 2>/dev/null)
-  if test "$repo_root" = ""
-     echo "Error: Not a git repository (or any of the parent directories): .git" >&2
-    return 128
-  end
-  if test (count $argv) -eq 0
-    cd $repo_root
-    return 0
-  end
+ set repo_root $(git rev-parse --show-toplevel 2>/dev/null)
+ if test "$repo_root" = ""
+    echo "Error: Not a git repository (or any of the parent directories): .git" >&2
+   return 128
+ end
+ if test (count $argv) -eq 0
+   cd $repo_root
+   return 0
+ end
 
-  if test -d $argv[1]
-    cd $argv[1]
-    return 0
-  end
+ if test -d $argv[1]
+   cd $argv[1]
+   return 0
+ end
 
   if test -f $argv[1]
     cd $(dirname $argv[1])
@@ -141,10 +139,10 @@ function app_id --description "Apple Bundle ID"
   set app_name $argv[1]
   osascript -e "id of app \"$app_name\""
 end
-
 #
-# customize fish prompt
-#
+##
+## customize fish prompt
+##
 function fish_prompt --description 'Write out the prompt'
     # Store status immediately at the start of the function
     set -l last_status $status
@@ -177,11 +175,11 @@ function fish_prompt --description 'Write out the prompt'
     # Return the original status
     return $last_status
 end
-
-
 #
-# vpn
 #
+##
+## vpn
+##
 function vpn
   if not test -f /etc/systemd/system/enable-vpn.service
     echo "No VPN service set up!" >&2
@@ -201,12 +199,12 @@ function vpn
       sudo service enable-vpn start
   end
 end
-
-
+#
+#
 function pbcopy -d "pbcopy over SSH"
     function on_error --on-event fish_postexec
         if test $status -ne 0
-            exit 1
+            return 1
         end
     end
 
@@ -218,11 +216,11 @@ function pbcopy -d "pbcopy over SSH"
         xsel --clipboard --input
     end
 end
-
+#
 function pbpaste -d "pbpaste over SSH"
     function on_error --on-event fish_postexec
         if test $status -ne 0
-            exit 1
+            return 1
         end
     end
 
@@ -236,7 +234,7 @@ function pbpaste -d "pbpaste over SSH"
 end
 
 
-# Tmux functions
+## Tmux functions
 function _build_tmux_alias
   set alias_name $argv[1]
   set tmux_cmd $argv[2]
