@@ -1,5 +1,6 @@
 # Colorscheme
 theme = "Dark+"
+background = "#141414"
 bold-is-bright = true
 window-theme = "system"
 
