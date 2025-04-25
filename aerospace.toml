@@ -199,7 +199,8 @@ run = [
   # this was also observed in:
   # - https://github.com/ghostty-org/ghostty/issues/1840
   # - https://github.com/ghostty-org/ghostty/issues/2006
-  "layout floating",
+  # "layout floating",
+  "move-node-to-workspace 1"
 ]
 
 [[on-window-detected]]
@@ -236,13 +237,13 @@ run = 'move-node-to-workspace 4' # Notes / Finder
 if.app-name-regex-substring= 'Finder'
 run = ['layout floating', 'move-node-to-workspace 4'] # Notes/Finder
 
-#[[on-window-detected]]
-#if.app-id = 'com.electron.dockerdesktop'
-#run = 'move-node-to-workspace 1' # Work
-#
-#[[on-window-detected]]
-#if.app-id = 'com.microsoft.VSCode'
-#run = 'move-node-to-workspace 1' # Work
+[[on-window-detected]]
+if.app-id = 'com.electron.dockerdesktop'
+run = 'move-node-to-workspace 1' # Work
+
+[[on-window-detected]]
+if.app-id = 'com.microsoft.VSCode'
+run = 'move-node-to-workspace 1' # Work
 
 [[on-window-detected]]
 if.app-id = 'com.apple.Notes'
