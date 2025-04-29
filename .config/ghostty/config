@@ -2,13 +2,13 @@
 #theme = "Dark+"
 #background = "#141414"
 theme = "Builtin Tango Dark"
-bold-is-bright = true
+#bold-is-bright = true
 window-theme = "system"
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
-font-size = 15
-font-thicken = true
+font-size = 14
+font-thicken = false
 
 # Setting MacOs Titlebar 
 macos-titlebar-style = native
