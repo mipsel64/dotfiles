@@ -4,6 +4,7 @@
 theme = "Builtin Tango Dark"
 #bold-is-bright = true
 window-theme = "system"
+shell-integration = fish
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
