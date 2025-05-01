@@ -283,7 +283,7 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme base16-default-dark]]
+            vim.cmd [[colorscheme base16-tomorrow-night]]
 
             -- XXX: hi Normal ctermbg=NONE
             -- Make comments more prominent -- they are important.
