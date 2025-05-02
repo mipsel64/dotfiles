@@ -1,6 +1,9 @@
 aerospace.toml|s|.aerospace.toml
 tmux.conf|s|.tmux.conf
-init.fish|s|.config/fish/config.fish
 .config/nvim|s|
 .config/ghostty|s|
 .config/borders|s|
+.config/fish/completions|s|
+.config/fish/functions|s|
+.config/fish/config.fish|s|
+.config/fish/fish_variables|s|
