@@ -277,13 +277,13 @@ require("lazy").setup {
     -- main color scheme
     { "rktjmp/lush.nvim" },
     {
-        "RRethy/base16-nvim",
+        "ellisonleao/gruvbox.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme base16-tomorrow-night]]
+            vim.cmd [[colorscheme gruvbox]]
 
             -- XXX: hi Normal ctermbg=NONE
             -- Make comments more prominent -- they are important.
