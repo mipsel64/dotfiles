@@ -23,7 +23,7 @@
 #selection-foreground = #c5c8c6
 window-theme = "system"
 shell-integration = fish
-theme = "GruvboxDarkHard"
+theme = "Popping and Locking"
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
