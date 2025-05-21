@@ -26,8 +26,8 @@ shell-integration = fish
 theme = "iTerm2 Default"
 
 # Font settings
-font-family = "MesloLG Nerd Font"
-font-size = 15
+font-family = "JetbrainsMono Nerd Font"
+font-size = 14
 font-thicken = false
 
 # Setting MacOs Titlebar 

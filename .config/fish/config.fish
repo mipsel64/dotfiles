@@ -39,6 +39,7 @@ alias sd="sudo shutdown -h"
 alias todev='ssh dev.local'
 alias tg="terragrunt"
 alias tf="terraform"
+alias coder="code --remote=ssh-remote+dev.local"
 
 ## Minikube
 alias mkk="minikube kubectl --"
