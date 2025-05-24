@@ -27,7 +27,7 @@ theme = "iTerm2 Default"
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
-font-size = 14
+font-size = 15
 font-thicken = false
 
 # Setting MacOs Titlebar 
