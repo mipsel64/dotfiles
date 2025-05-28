@@ -26,7 +26,7 @@ shell-integration = fish
 theme = "iTerm2 Default"
 
 # Font settings
-font-family = "FiraCode Nerd Font"
+font-family = "JetbrainMono Nerd Font"
 font-size = 15
 font-thicken = false
 
