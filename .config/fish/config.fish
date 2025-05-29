@@ -40,6 +40,7 @@ alias todev='ssh dev.local'
 alias tg="terragrunt"
 alias tf="terraform"
 alias coder="code --remote=ssh-remote+dev.local"
+alias unset="set --erase"
 
 ## Minikube
 alias mkk="minikube kubectl --"
@@ -233,7 +234,6 @@ function pbpaste -d "pbpaste over SSH"
         xsel --clipboard --output
     end
 end
-
 
 ## Tmux functions
 function _build_tmux_alias
