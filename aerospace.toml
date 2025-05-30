@@ -219,6 +219,11 @@ run = ['move-node-to-workspace 3']
 
 [[on-window-detected]]
 if.window-title-regex-substring = '^(Bitwarden\s-\s.*|Task Manager)$'
+if.app-id = 'com.brave.Browser'
+run = ['layout floating']
+
+[[on-window-detected]]
+if.window-title-regex-substring = '^(Bitwarden\s-\s.*|Task Manager)$'
 if.app-id = 'com.google.Chrome'
 run = ['layout floating']
 
@@ -226,6 +231,7 @@ run = ['layout floating']
 if.window-title-regex-substring = '^Extension:.*$'
 if.app-id = 'org.mozilla.firefox'
 run = ['layout floating']
+
 
 [[on-window-detected]]
 if.app-id = 'md.obsidian'
