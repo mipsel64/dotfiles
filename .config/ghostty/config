@@ -28,7 +28,8 @@ theme = "deep"
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
 font-size = 15
-font-thicken = false
+font-thicken = true
+font-thicken-strength = 100
 
 # Setting MacOs Titlebar 
 macos-titlebar-style = native
