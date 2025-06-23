@@ -26,7 +26,7 @@ shell-integration = fish
 theme = "deep"
 
 # Font settings
-font-family = "Hasklug Nerd Font Mono"
+font-family = "JetbrainsMono Nerd Font"
 font-size = 15
 font-thicken = false
 font-thicken-strength = 0
