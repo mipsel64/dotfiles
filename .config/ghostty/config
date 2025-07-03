@@ -4,7 +4,7 @@ theme = "deep"
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"
-font-size = 14
+font-size = 13
 font-thicken = false
 font-thicken-strength = 0
 
