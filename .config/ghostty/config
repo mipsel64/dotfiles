@@ -4,7 +4,7 @@ theme = "deep"
 
 # Font settings
 font-family = "CaskaydiaCove Nerd Font"
-font-size = 13
+font-size = 14
 font-thicken = false
 font-thicken-strength = 0
 
