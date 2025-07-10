@@ -1,6 +1,8 @@
 window-theme = "system"
 shell-integration = fish
 theme = "deep"
+background-opacity = 0.95
+
 
 # Font settings
 font-family = "AdwaitaMono Nerd Font"
