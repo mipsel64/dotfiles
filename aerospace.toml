@@ -223,6 +223,11 @@ if.app-id = 'com.google.Chrome'
 run = ['layout floating']
 
 [[on-window-detected]]
+if.window-title-regex-substring = '^(Bitwarden|Task Manager)$'
+if.app-id = 'com.microsoft.edgemac'
+run = ['layout floating']
+
+[[on-window-detected]]
 if.window-title-regex-substring = '^Extension:.*$'
 if.app-id = 'org.mozilla.firefox'
 run = ['layout floating']
