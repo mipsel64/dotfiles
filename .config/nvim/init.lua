@@ -251,7 +251,8 @@ vim.api.nvim_create_autocmd("Filetype", {
     group = text,
     command = "setlocal spell tw=80 colorcolumn=81",
 })
--- TODO: no autocomplete in text
+
+vim.b.completion = false
 
 -------------------------------------------------------------------------------
 --
@@ -301,6 +302,16 @@ require("lazy").setup {
             -- them less glaring. But alas
             -- https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
             -- call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
+        end,
+    },
+    {
+        "saghen/blink.cmp",
+        opts = function(_, opts)
+            opts.keymap = {
+                preset = "super-tab",
+                ["<Tab>"] = { "select_and_accept" },
+                ["<S-Tab>"] = { "select_prev" },
+            }
         end,
     },
     -- nice bar at the bottom
