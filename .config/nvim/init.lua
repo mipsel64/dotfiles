@@ -252,8 +252,6 @@ vim.api.nvim_create_autocmd("Filetype", {
     command = "setlocal spell tw=80 colorcolumn=81",
 })
 
-vim.b.completion = false
-
 -------------------------------------------------------------------------------
 --
 -- plugin configuration
@@ -302,16 +300,6 @@ require("lazy").setup {
             -- them less glaring. But alas
             -- https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
             -- call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
-        end,
-    },
-    {
-        "saghen/blink.cmp",
-        opts = function(_, opts)
-            opts.keymap = {
-                preset = "super-tab",
-                ["<Tab>"] = { "select_and_accept" },
-                ["<S-Tab>"] = { "select_prev" },
-            }
         end,
     },
     -- nice bar at the bottom
@@ -403,7 +391,6 @@ require("lazy").setup {
             vim.keymap.set("n", "<C-p>", ":FzfLua files<CR>", { desc = "Fzf: Search files" })
         end
     },
-
     -- LSP
     {
         "williamboman/mason.nvim",
@@ -425,28 +412,6 @@ require("lazy").setup {
         config = function()
             -- Setup language servers.
             local lspconfig = require "lspconfig"
-
-            -- Rust
-            --lspconfig.rust_analyzer.setup {
-            --    -- Server-specific settings. See `:help lspconfig-setup`
-            --    settings = {
-            --        ["rust-analyzer"] = {
-            --            cargo = {
-            --                allFeatures = true,
-            --            },
-            --            imports = {
-            --                group = {
-            --                    enable = false,
-            --                },
-            --            },
-            --            completion = {
-            --                postfix = {
-            --                    enable = false,
-            --                },
-            --            },
-            --        },
-            --    },
-            --}
 
             -- Go
             lspconfig.gopls.setup {}
@@ -562,6 +527,7 @@ require("lazy").setup {
                 vim.cmd.RustLsp({ 'hover', 'action' })
             end, { silent = true, buffer = bufnr })
         end
+
     },
     -- LSP-based code-completion
     {
@@ -575,6 +541,7 @@ require("lazy").setup {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "hrsh7th/vim-vsnip",
         },
         config = function()
             local cmp = require "cmp"
@@ -592,12 +559,18 @@ require("lazy").setup {
                     ["<C-e>"] = cmp.mapping.abort(),
                     -- Accept currently selected item.
                     -- Set `select` to `false` to only confirm explicitly selected items.
-                    ["<CR>"] = cmp.mapping.confirm { select = true },
+                    --
+                    ['<CR>'] = cmp.mapping.confirm({
+                        behavior = cmp.ConfirmBehavior.Replace,
+                        select = true,
+                    })
                 },
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                 }, {
                     { name = "path" },
+                }, {
+                    { name = 'vsnip' },
                 }),
                 experimental = {
                     ghost_text = true,
