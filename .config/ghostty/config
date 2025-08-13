@@ -6,7 +6,7 @@ background-opacity = 0.95
 
 # Font settings
 font-family = "DejavuSansM Nerd Font"
-font-size = 14
+font-size = 15
 font-thicken = false
 font-thicken-strength = 0
 
