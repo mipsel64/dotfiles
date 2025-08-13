@@ -273,8 +273,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
-    -- main color scheme
-    { "rktjmp/lush.nvim" },
     {
         "blazkowolf/gruber-darker.nvim",
         lazy = false,    -- load at start
@@ -284,66 +282,122 @@ require("lazy").setup {
             vim.o.background = "dark"
             vim.cmd [[colorscheme gruber-darker]]
 
-            -- XXX: hi Normal ctermbg=NONE
-            -- Make comments more prominent -- they are important.
             local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
             vim.api.nvim_set_hl(0, "Comment", bools)
-            -- Make it clearly visible which argument we're at.
             local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
             vim.api.nvim_set_hl(
                 0,
                 "LspSignatureActiveParameter",
                 { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true }
             )
-            -- XXX
-            -- Would be nice to customize the highlighting of warnings and the like to make
-            -- them less glaring. But alas
-            -- https://github.com/nvim-lua/lsp_extensions.nvim/issues/21
-            -- call Base16hi("CocHintSign", g:base16_gui03, "", g:base16_cterm03, "", "", "")
         end,
     },
-    -- nice bar at the bottom
     {
-        "itchyny/lightline.vim",
-        lazy = false, -- also load at start since it's UI
+        'akinsho/bufferline.nvim',
+        version = "^4",
+        dependencies = 'nvim-tree/nvim-web-devicons',
         config = function()
-            -- no need to also show mode in cmd line when we have bar
-            vim.o.showmode = false
-            vim.g.lightline = {
-                active = {
-                    left = {
-                        { "mode",     "paste" },
-                        { "readonly", "filename", "modified" },
-                    },
-                    right = {
-                        { "lineinfo" },
-                        { "percent" },
-                        { "fileencoding", "filetype" },
-                    },
-                },
-                component_function = {
-                    filename = "LightlineFilename",
-                },
+            require('bufferline').setup {
             }
-            function LightlineFilenameInLua(opts)
-                if vim.fn.expand "%:t" == "" then
-                    return "[No Name]"
-                else
-                    return vim.fn.getreg "%"
-                end
+        end
+
+    },
+    {
+        'nvim-telescope/telescope.nvim', branch = '0.1.x',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            {
+                'nvim-telescope/telescope-fzf-native.nvim',
+                build = 'make',
+                cond = function()
+                    return vim.fn.executable 'make' == 1
+                end,
+            },
+            { 'nvim-telescope/telescope-ui-select.nvim' },
+            {
+                'nvim-tree/nvim-web-devicons',
+                enabled = vim.g.have_nerd_font
+            },
+        },
+        config = function()
+            require('telescope').setup {
+                extensions = {
+                    ['ui-select'] = {
+                        require('telescope.themes').get_dropdown(),
+                    },
+                },
+                defaults = {
+                    file_ignore_patterns = {
+                        "%.next",
+                        "%.git/",
+                        "%.gitlab/",
+                        ".terra*",
+                        ".terra*/",
+                        "node_modules/",
+                        "target/",
+
+                    }
+                }
+            }
+
+            pcall(require('telescope').load_extension, 'fzf')
+            pcall(require('telescope').load_extension, 'ui-select')
+
+            local builtin = require 'telescope.builtin'
+            vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
+            vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
+            vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
+            vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = '[F]ind current [W]ord' })
+            vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })
+            vim.keymap.set('n', '<leader>fd', builtin.diagnostics, { desc = '[F]ind [D]iagnostics' })
+            vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
+            vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
+            vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+
+            local find_files = function()
+                builtin.find_files { hidden = true }
             end
 
-            -- https://github.com/itchyny/lightline.vim/issues/657
-            vim.api.nvim_exec(
-                [[
-				function! g:LightlineFilename()
-					return v:lua.LightlineFilenameInLua()
-				endfunction
-				]],
-                true
-            )
+            vim.keymap.set('n', '<leader>ff', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
+            vim.keymap.set('n', '<C-p>', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
+
+            vim.keymap.set('n', '<leader>/', function()
+                builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+                    winblend = 10,
+                    previewer = false,
+                })
+            end, { desc = '[/] Fuzzily search in current buffer' })
+
+            vim.keymap.set('n', '<leader>s/', function()
+                builtin.live_grep {
+                    grep_open_files = true,
+                    prompt_title = 'Live Grep in Open Files',
+                }
+            end, { desc = '[F]ind [/] in Open Files' })
+
+            vim.keymap.set('n', '<leader>fn', function()
+                builtin.find_files { cwd = vim.fn.stdpath 'config' }
+            end, { desc = '[F]ind [N]eovim files' })
         end,
     },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'arkav/lualine-lsp-progress'
+        },
+        config = function()
+            require('lualine').setup({
+                options = {
+                    theme = 'auto',
+                    component_separators = { left = '|', right = '|' },
+                    section_separators = { left = '', right = '' },
+                },
+                sections = {
+                    lualine_c = { 'lsp_progress' },
+                },
+            })
+        end },
     { -- Adds git related signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
         opts = {
@@ -355,41 +409,6 @@ require("lazy").setup {
                 changedelete = { text = '~' },
             },
         },
-    },
-    -- quick navigation
-    {
-        "ggandor/leap.nvim",
-        config = function()
-            require("leap").create_default_mappings()
-        end,
-    },
-    -- better %
-    {
-        "andymass/vim-matchup",
-        config = function()
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
-        end,
-    },
-    -- auto-cd to root of git project
-    -- 'airblade/vim-rooter'
-    {
-        "notjedi/nvim-rooter.lua",
-        config = function()
-            require("nvim-rooter").setup()
-        end,
-    },
-
-    {
-        "ibhagwan/fzf-lua",
-        -- optional for icon support
-        dependencies = { "nvim-tree/nvim-web-devicons" },
-        -- or if using mini.icons/mini.nvim
-        -- dependencies = { "echasnovski/mini.icons" },
-        config = function()
-            require "fzf-lua".setup {}
-            -- Use Ctrl + p to search file with Fzf
-            vim.keymap.set("n", "<C-p>", ":FzfLua files<CR>", { desc = "Fzf: Search files" })
-        end
     },
     -- LSP
     {
@@ -583,21 +602,6 @@ require("lazy").setup {
                     { name = "path" },
                 },
             })
-        end,
-    },
-    -- inline function signatures
-    {
-        "ray-x/lsp_signature.nvim",
-        event = "VeryLazy",
-        opts = {},
-        config = function(_, opts)
-            -- Get signatures (and _only_ signatures) when in argument lists.
-            require("lsp_signature").setup {
-                doc_lines = 0,
-                handler_opts = {
-                    border = "none",
-                },
-            }
         end,
     },
     {
