@@ -334,8 +334,10 @@ require("lazy").setup {
                         ".terra*",
                         ".terra*/",
                         "node_modules/",
+                        ".cache/",
+                        ".gsutil/",
+                        ".npm",
                         "target/",
-
                     }
                 }
             }
