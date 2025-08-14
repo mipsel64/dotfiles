@@ -205,7 +205,7 @@ vim.keymap.set("i", "<F1>", "<Esc>")
 -- jump to last edit position on opening file
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = "*",
-    callback = function(ev)
+    callback = function()
         if vim.fn.line "'\"" > 1 and vim.fn.line "'\"" <= vim.fn.line "$" then
             -- except for in git commit messages
             -- https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
@@ -384,7 +384,6 @@ require("lazy").setup {
         'nvim-lualine/lualine.nvim',
         dependencies = {
             'nvim-tree/nvim-web-devicons',
-            'arkav/lualine-lsp-progress'
         },
         config = function()
             require('lualine').setup({
@@ -393,12 +392,9 @@ require("lazy").setup {
                     component_separators = { left = '|', right = '|' },
                     section_separators = { left = '', right = '' },
                 },
-                sections = {
-                    lualine_c = { 'lsp_progress' },
-                },
             })
         end },
-    { -- Adds git related signs to the gutter, as well as utilities for managing changes
+    {
         'lewis6991/gitsigns.nvim',
         opts = {
             signs = {
@@ -409,6 +405,10 @@ require("lazy").setup {
                 changedelete = { text = '~' },
             },
         },
+    },
+    {
+        "j-hui/fidget.nvim",
+        opts = {},
     },
     -- LSP
     {
@@ -475,14 +475,42 @@ require("lazy").setup {
                 lspconfig.ruff_lsp.setup {}
             end
 
-            lspconfig.lua_ls.setup {}
+            lspconfig.lua_ls.setup {
+                settings = {
+                    Lua = {
+                        runtime = {
+                            -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                            version = "LuaJIT",
+                            path = vim.split(package.path, ";"),
+                        },
+                        diagnostics = {
+                            -- Get the language server to recognize the `vim` global
+                            globals = { "vim" },
+                        },
+                        workspace = {
+                            -- Make the server aware of Neovim runtime files and plugins
+                            library = { vim.env.VIMRUNTIME },
+                            checkThirdParty = false,
+                        },
+                        telemetry = {
+                            enable = false,
+                        },
+                    },
+                },
+            }
 
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
             vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
-            vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
-            vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
+            vim.keymap.set('n', '[d', function()
+                vim.diagnostic.jump({ count = -1, float = true })
+            end)
+            vim.keymap.set('n', ']d', function()
+                vim.diagnostic.jump({ count = 1, float = true })
+            end)
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
+            vim.diagnostic.config({ virtual_text = true })
 
             -- Use LspAttach autocommand to only map the following keys
             -- after the language server attaches to the current buffer
@@ -527,7 +555,9 @@ require("lazy").setup {
 
                     -- None of this semantics tokens business.
                     -- https://www.reddit.com/r/neovim/comments/143efmd/is_it_possible_to_disable_treesitter_completely/
-                    client.server_capabilities.semanticTokensProvider = nil
+                    if client ~= nil then
+                        client.server_capabilities.semanticTokensProvider = nil
+                    end
                 end,
             })
         end,
@@ -545,6 +575,15 @@ require("lazy").setup {
             vim.keymap.set("n", "K", function()
                 vim.cmd.RustLsp({ 'hover', 'action' })
             end, { silent = true, buffer = bufnr })
+
+
+            vim.g.rustaceanvim = {
+                server = {
+                    on_attach = function()
+                        vim.cmd.RustAnalyzer { 'config', '{ checkOnSave = false }' }
+                    end,
+                },
+            }
         end
 
     },
