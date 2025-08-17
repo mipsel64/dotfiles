@@ -293,6 +293,30 @@ require("lazy").setup {
         end,
     },
     {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            lsp = {
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                },
+            },
+            presets = {
+                bottom_search = false,
+                command_palette = true,
+                long_message_to_split = true,
+                inc_rename = false,
+                lsp_doc_border = false,
+            },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        }
+    },
+    {
         'akinsho/bufferline.nvim',
         version = "^4",
         dependencies = 'nvim-tree/nvim-web-devicons',
@@ -303,15 +327,38 @@ require("lazy").setup {
 
     },
     {
-        'github/copilot.vim',
+        'milanglacier/minuet-ai.nvim',
         config = function()
-            vim.keymap.set('i', '<M-CR>', 'copilot#Accept("CR")', {
-                desc = 'Copilot accept code suggestion',
-                expr = true,
-                replace_keycodes = false,
-            })
-            vim.g.copilot_no_tab_map = true
-        end
+            require('minuet').setup {
+                virtualtext = {
+                    auto_trigger_ft = { 'rust', 'go', 'lua', 'c' },
+                    keymap = {
+                        accept = '<M-CR>',
+                        dismiss = '<C-]>',
+                    }
+                },
+                provider = 'openai_compatible',
+                request_timeout = 5.0,
+                throttle = 1000,
+                debounce = 500,
+                provider_options = {
+                    openai_compatible = {
+                        api_key = 'OPENROUTER_API_KEY',
+                        end_point = 'https://openrouter.ai/api/v1/chat/completions',
+                        model = 'qwen/qwen3-coder',
+                        name = 'openrouter',
+                        optional = {
+                            max_token = 64,
+                            top_p = 0.9,
+                            provider = {
+                                sort = 'throughput'
+                            }
+                        }
+                    }
+                },
+                n_completions = 1,
+            }
+        end,
     },
     {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
@@ -612,6 +659,7 @@ require("lazy").setup {
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "hrsh7th/cmp-cmdline",
             "hrsh7th/vim-vsnip",
         },
         config = function()
