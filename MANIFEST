@@ -3,7 +3,4 @@ tmux.conf|s|.tmux.conf
 .config/nvim|s|
 .config/ghostty|s|
 .config/borders|s|
-.config/fish/completions|s|
-.config/fish/functions|s|
 .config/fish/config.fish|s|
-.config/fish/fish_variables|s|
