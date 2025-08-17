@@ -302,17 +302,18 @@ require("lazy").setup {
         end
 
     },
-    {
-        'github/copilot.vim',
-        config = function()
-            vim.keymap.set('i', '<M-CR>', 'copilot#Accept("CR")', {
-                desc = 'Copilot accept code suggestion',
-                expr = true,
-                replace_keycodes = false,
-            })
-            vim.g.copilot_no_tab_map = true
-        end
-    },
+    -- {
+    --     'github/copilot.vim',
+    --     config = function()
+    --         vim.keymap.set('i', '<M-CR>', 'copilot#Accept("CR")', {
+    --             desc = 'Copilot accept code suggestion',
+    --             expr = true,
+    --             replace_keycodes = false,
+    --         })
+    --         vim.g.copilot_no_tab_map = true
+    --     end
+    -- },
+    --
     {
         'nvim-telescope/telescope.nvim', branch = '0.1.x',
         dependencies = {

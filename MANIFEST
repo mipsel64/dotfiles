@@ -3,4 +3,4 @@ tmux.conf|s|.tmux.conf
 .config/nvim|s|
 .config/ghostty|s|
 .config/borders|s|
-.config/fish/config.fish|s|
+config.fish|s|.config/fish/config.fish

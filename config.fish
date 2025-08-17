@@ -269,3 +269,7 @@ _build_tmux_alias "tn" "new-session" "-s"
 _build_tmux_alias "tkss" "kill-session" "-t"
 
 functions -e _build_tmux_alias # remove this function after use
+
+if test -f "$HOME/.private.fish"
+    source "$HOME/.private.fish"
+end
