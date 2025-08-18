@@ -317,7 +317,7 @@ require("lazy").setup {
         'rcarriga/nvim-notify',
         config = function()
             require('notify').setup {
-                fps = 60,
+                fps = 30,
                 stages = 'static',
             }
         end
@@ -340,6 +340,10 @@ require("lazy").setup {
                 long_message_to_split = true,
                 inc_rename = false,
                 lsp_doc_border = false,
+            },
+            -- walkaround issue https://github.com/folke/noice.nvim/issues/1097
+            messages = {
+                enabled = false
             },
         },
         dependencies = {
