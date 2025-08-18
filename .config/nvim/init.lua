@@ -293,6 +293,37 @@ require("lazy").setup {
         end,
     },
     {
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+        },
+    },
+    {
+        'akinsho/bufferline.nvim',
+        version = "^4",
+        dependencies = 'nvim-tree/nvim-web-devicons',
+        config = function()
+            require('bufferline').setup {
+            }
+        end
+    },
+    {
+        'rcarriga/nvim-notify',
+        config = function()
+            require('notify').setup {
+                fps = 60,
+                stages = 'static',
+            }
+        end
+
+    },
+    {
         "folke/noice.nvim",
         event = "VeryLazy",
         opts = {
@@ -313,17 +344,7 @@ require("lazy").setup {
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
-            "rcarriga/nvim-notify",
         }
-    },
-    {
-        'akinsho/bufferline.nvim',
-        version = "^4",
-        dependencies = 'nvim-tree/nvim-web-devicons',
-        config = function()
-            require('bufferline').setup {
-            }
-        end
     },
     {
         'nvim-neo-tree/neo-tree.nvim',
@@ -332,13 +353,22 @@ require("lazy").setup {
             'nvim-lua/plenary.nvim',
             'nvim-tree/nvim-web-devicons',
             'MunifTanjim/nui.nvim',
+            'saifulapm/neotree-file-nesting-config',
         },
         lazy = false,
         keys = {
             { '<C-\\>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
         },
         opts = {
+            hide_root_node = true,
+            retain_hidden_root_indent = true,
             filesystem = {
+                filtered_items = {
+                    show_hidden_count = false,
+                    never_show = {
+                        '.DS_Store',
+                    },
+                },
                 window = {
                     mappings = {
                         ['<C-\\>'] = 'close_window',
@@ -348,7 +378,18 @@ require("lazy").setup {
                     },
                 },
             },
+            default_component_configs = {
+                indent = {
+                    with_expanders = true,
+                    expander_collapsed = '',
+                    expander_expanded = '',
+                },
+            },
         },
+        config = function(_, opts)
+            opts.nesting_rules = require('neotree-file-nesting-config').nesting_rules
+            require('neo-tree').setup(opts)
+        end,
     },
     {
         'milanglacier/minuet-ai.nvim',
@@ -478,18 +519,6 @@ require("lazy").setup {
                 },
             })
         end },
-    {
-        'lewis6991/gitsigns.nvim',
-        opts = {
-            signs = {
-                add = { text = '+' },
-                change = { text = '~' },
-                delete = { text = '_' },
-                topdelete = { text = '‾' },
-                changedelete = { text = '~' },
-            },
-        },
-    },
     {
         "j-hui/fidget.nvim",
         opts = {},
