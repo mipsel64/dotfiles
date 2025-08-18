@@ -324,7 +324,31 @@ require("lazy").setup {
             require('bufferline').setup {
             }
         end
-
+    },
+    {
+        'nvim-neo-tree/neo-tree.nvim',
+        version = '^3',
+        dependencies = {
+            'nvim-lua/plenary.nvim',
+            'nvim-tree/nvim-web-devicons',
+            'MunifTanjim/nui.nvim',
+        },
+        lazy = false,
+        keys = {
+            { '<C-\\>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
+        },
+        opts = {
+            filesystem = {
+                window = {
+                    mappings = {
+                        ['<C-\\>'] = 'close_window',
+                        ['c'] = {
+                            'copy', config = { show_path = 'relative' }
+                        }
+                    },
+                },
+            },
+        },
     },
     {
         'milanglacier/minuet-ai.nvim',
@@ -348,7 +372,7 @@ require("lazy").setup {
                         model = 'qwen/qwen3-coder',
                         name = 'openrouter',
                         optional = {
-                            max_token = 64,
+                            max_token = 128,
                             top_p = 0.9,
                             provider = {
                                 sort = 'throughput'
