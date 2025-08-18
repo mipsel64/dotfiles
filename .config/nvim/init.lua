@@ -335,7 +335,7 @@ require("lazy").setup {
                 },
             },
             presets = {
-                bottom_search = false,
+                bottom_search = true,
                 command_palette = true,
                 long_message_to_split = true,
                 inc_rename = false,
@@ -520,6 +520,15 @@ require("lazy").setup {
                     theme = 'auto',
                     component_separators = { left = '|', right = '|' },
                     section_separators = { left = '', right = '' },
+                },
+                sections = {
+                    lualine_c = {
+                        {
+                            'filename',
+                            file_status = true,
+                            path = 1,
+                        }
+                    },
                 },
             })
         end },
