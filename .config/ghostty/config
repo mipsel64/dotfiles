@@ -5,9 +5,9 @@ background-opacity = 0.95
 
 
 # Font settings
-font-family = "NotoSansM Nerd Font"
+font-family = "DejavuSansM Nerd Font"
 font-size = 14
-font-thicken = false
+font-thicken = true
 font-thicken-strength = 0
 
 # Setting MacOs Titlebar 
