@@ -14,6 +14,8 @@
 	<integer>1</integer>
 	<key>AppleWindowTabbingMode</key>
 	<string>manual</string>
+	<key>ClickToSelectCommand</key>
+	<false/>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>12-bit Rainbow</key>
@@ -995,12 +997,16 @@
 			<true/>
 			<key>Background Color</key>
 			<dict>
+				<key>Alpha Component</key>
+				<real>1</real>
 				<key>Blue Component</key>
-				<real>0.11372549019607843</real>
+				<real>0.094117647058823528</real>
+				<key>Color Space</key>
+				<string>P3</string>
 				<key>Green Component</key>
-				<real>0.11764705882352941</real>
+				<real>0.094117647058823528</real>
 				<key>Red Component</key>
-				<real>0.11372549019607843</real>
+				<real>0.094117647058823528</real>
 			</dict>
 			<key>Background Color (Dark)</key>
 			<dict>
@@ -1483,6 +1489,10 @@
 	<key>UseBorder</key>
 	<true/>
 	<key>VisualIndicatorForEsc</key>
+	<false/>
+	<key>kCPKSelectionViewPreferredModeKey</key>
+	<integer>0</integer>
+	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
 	<false/>
 </dict>
 </plist>
