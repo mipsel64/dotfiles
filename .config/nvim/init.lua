@@ -274,13 +274,15 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "blazkowolf/gruber-darker.nvim",
+        -- "blazkowolf/gruber-darker.nvim",
+        "adibhanna/gruvdark.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd [[colorscheme gruber-darker]]
+            --vim.cmd [[colorscheme gruber-darker]]
+            vim.cmd [[colorscheme gruvdark]]
 
             local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
             vim.api.nvim_set_hl(0, "Comment", bools)
