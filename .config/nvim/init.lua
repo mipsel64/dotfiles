@@ -280,12 +280,12 @@ require("lazy").setup {
         priority = 1000, -- load first
         config = function()
             vim.o.termguicolors = true
-            vim.o.background = "dark"
+            --vim.o.background = "dark"
             --vim.cmd [[colorscheme gruber-darker]]
             vim.cmd [[colorscheme gruvdark]]
 
-            local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
-            vim.api.nvim_set_hl(0, "Comment", bools)
+            --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
+            --vim.api.nvim_set_hl(0, "Comment", bools)
             local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
             vim.api.nvim_set_hl(
                 0,
