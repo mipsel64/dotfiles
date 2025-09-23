@@ -235,6 +235,20 @@ function pbpaste -d "pbpaste over SSH"
     end
 end
 
+## Ranger cd
+function ranger-cd
+    set dir (mktemp -t ranger_cd.XXX)
+    ranger --choosedir=$dir
+    cd (cat $dir) $argv
+    rm $dir
+    commandline -f repaint
+end
+funcsave ranger-cd
+
+# Bind Ctrl+o to trigger ranger-cd
+bind \co ranger-cd
+
+
 ## Tmux functions
 function _build_tmux_alias
   set alias_name $argv[1]
