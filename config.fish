@@ -243,7 +243,6 @@ function ranger-cd
     rm $dir
     commandline -f repaint
 end
-funcsave ranger-cd
 
 # Bind Ctrl+o to trigger ranger-cd
 bind \co ranger-cd
