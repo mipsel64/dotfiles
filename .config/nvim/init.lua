@@ -275,18 +275,24 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup {
     {
         -- "blazkowolf/gruber-darker.nvim",Q
-        "RRethy/base16-nvim",
+        "cpea2506/one_monokai.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
+            require("one_monokai").setup({
+                transparent = true,
+                italics = false,
+            })
+
             vim.o.termguicolors = true
             vim.o.background = "dark"
             --vim.cmd [[colorscheme gruber-darker]]
-            vim.cmd [[colorscheme base16-tomorrow-night]]
+            vim.cmd [[colorscheme one_monokai]]
 
             --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
             --vim.api.nvim_set_hl(0, "Comment", bools)
             local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
+
             vim.api.nvim_set_hl(
                 0,
                 "LspSignatureActiveParameter",
