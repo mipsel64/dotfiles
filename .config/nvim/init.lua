@@ -274,30 +274,23 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        -- "blazkowolf/gruber-darker.nvim",Q
-        "cpea2506/one_monokai.nvim",
+        "blazkowolf/gruber-darker.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load first
         config = function()
-            require("one_monokai").setup({
-                transparent = true,
-                italics = false,
-            })
-
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            --vim.cmd [[colorscheme gruber-darker]]
-            vim.cmd [[colorscheme one_monokai]]
+            vim.cmd [[colorscheme gruber-darker]]
 
             --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
             --vim.api.nvim_set_hl(0, "Comment", bools)
-            local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
+            --local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
 
-            vim.api.nvim_set_hl(
-                0,
-                "LspSignatureActiveParameter",
-                { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true }
-            )
+            --vim.api.nvim_set_hl(
+            --    0,
+            --    "LspSignatureActiveParameter",
+            --    { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true }
+            --)
         end,
     },
     {
