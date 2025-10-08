@@ -275,31 +275,27 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
-    -- {
-    --     --"blazkowolf/gruber-darker.nvim",
-    --     "navarasu/onedark.nvim",
-    --     lazy = false,    -- load at start
-    --     priority = 1000, -- load first
-    --     config = function()
-    --         vim.o.termguicolors = true
-    --         vim.o.background = "dark"
-    --         require('onedark').setup {
-    --             style = 'warmer'
-    --         }
-    --         -- Enable theme
-    --         require('onedark').load()
+    {
+        --"blazkowolf/gruber-darker.nvim",
+        "chriskempson/base16-vim",
+        lazy = false,    -- load at start
+        priority = 1000, -- load first
+        config = function()
+            vim.o.termguicolors = true
+            vim.o.background = "dark"
+            vim.cmd([[colorscheme base16-onedark]])
 
-    --         --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
-    --         --vim.api.nvim_set_hl(0, "Comment", bools)
-    --         --local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
+            --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
+            --vim.api.nvim_set_hl(0, "Comment", bools)
+            --local marked = vim.api.nvim_get_hl(0, { name = "PMenu" })
 
-    --         --vim.api.nvim_set_hl(
-    --         --    0,
-    --         --    "LspSignatureActiveParameter",
-    --         --    { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true }
-    --         --)
-    --     end,
-    -- },
+            --vim.api.nvim_set_hl(
+            --    0,
+            --    "LspSignatureActiveParameter",
+            --    { fg = marked.fg, bg = marked.bg, ctermfg = marked.ctermfg, ctermbg = marked.ctermbg, bold = true }
+            --)
+        end,
+    },
     {
         'lewis6991/gitsigns.nvim',
         opts = {
