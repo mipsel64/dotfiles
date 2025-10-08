@@ -283,7 +283,7 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd([[colorscheme base16-onedark]])
+            vim.cmd([[colorscheme base16-default-dark]])
 
             --local bools = vim.api.nvim_get_hl(0, { name = "Boolean" })
             --vim.api.nvim_set_hl(0, "Comment", bools)
