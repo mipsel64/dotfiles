@@ -560,10 +560,9 @@ require("lazy").setup {
         "neovim/nvim-lspconfig",
         config = function()
             -- Setup language servers.
-            local lspconfig = require "lspconfig"
 
             -- Go
-            lspconfig.gopls.setup {}
+            vim.lsp.config['gopls'] = {}
 
             -- Bash LSP
             local configs = require "lspconfig.configs"
@@ -581,8 +580,9 @@ require("lazy").setup {
                     },
                 }
             end
+
             if configs.bash_lsp then
-                lspconfig.bash_lsp.setup {}
+                vim.lsp.config['bash_lsp'] = {}
             end
 
             -- Ruff for Python
@@ -602,10 +602,10 @@ require("lazy").setup {
                 }
             end
             if configs.ruff_lsp then
-                lspconfig.ruff_lsp.setup {}
+                vim.lsp.config['ruff_lsp'] = {}
             end
 
-            lspconfig.lua_ls.setup {
+            vim.lsp.config['lua_ls'] = {
                 settings = {
                     Lua = {
                         runtime = {
