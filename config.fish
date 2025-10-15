@@ -36,10 +36,10 @@ alias vg="vagrant"
 alias reset-gpg="gpgconf --kill gpg-agent"
 alias glp="git pull && git push"
 alias sd="sudo shutdown -h"
-alias todev='ssh rdev'
+alias todev='ssh dev.remote'
 alias tg="terragrunt"
 alias tf="terraform"
-alias coder="code --remote=ssh-remote+dev.local"
+alias coder="code --remote=ssh-remote+dev.remote"
 alias unset="set --erase"
 
 ## Minikube
