@@ -36,7 +36,7 @@ alias vg="vagrant"
 alias reset-gpg="gpgconf --kill gpg-agent"
 alias glp="git pull && git push"
 alias sd="sudo shutdown -h"
-alias todev='ssh dev.local'
+alias todev='ssh rdev'
 alias tg="terragrunt"
 alias tf="terraform"
 alias coder="code --remote=ssh-remote+dev.local"
