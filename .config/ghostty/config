@@ -30,7 +30,7 @@ selection-foreground = #ffffff
 
 
 # Font settings
-font-family = "MesloLGM Nerd Font"
+font-family = "DejavuSansM Nerd Font"
 font-size = 14
 font-thicken = false
 font-thicken-strength = 0
