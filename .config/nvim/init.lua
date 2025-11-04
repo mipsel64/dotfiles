@@ -276,14 +276,14 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "metalelf0/jellybeans-nvim",
+        "doums/darcula",
         lazy = false,    -- load at start
-        priority = 1000, -- load first
+        priority = 1000, -- load firstl
         dependencies = 'rktjmp/lush.nvim',
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd([[colorscheme jellybeans-nvim]])
+            vim.cmd([[colorscheme darcula]])
         end,
     },
     {
@@ -387,40 +387,6 @@ require("lazy").setup {
         config = function(_, opts)
             opts.nesting_rules = require('neotree-file-nesting-config').nesting_rules
             require('neo-tree').setup(opts)
-        end,
-    },
-    {
-        'milanglacier/minuet-ai.nvim',
-        config = function()
-            require('minuet').setup {
-                virtualtext = {
-                    auto_trigger_ft = { 'rust', 'go', 'lua', 'c' },
-                    keymap = {
-                        accept = '<M-CR>',
-                        dismiss = '<C-]>',
-                    }
-                },
-                provider = 'openai_compatible',
-                request_timeout = 5.0,
-                throttle = 1000,
-                debounce = 500,
-                provider_options = {
-                    openai_compatible = {
-                        api_key = 'OPENROUTER_API_KEY',
-                        end_point = 'https://openrouter.ai/api/v1/chat/completions',
-                        model = 'qwen/qwen3-coder',
-                        name = 'openrouter',
-                        optional = {
-                            max_token = 128,
-                            top_p = 0.9,
-                            provider = {
-                                sort = 'throughput'
-                            }
-                        }
-                    }
-                },
-                n_completions = 1,
-            }
         end,
     },
     {
