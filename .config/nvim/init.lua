@@ -276,14 +276,18 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "doums/darcula",
+        "AxelGard/oneokai.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = 'rktjmp/lush.nvim',
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd([[colorscheme darcula]])
+            -- vim.cmd([[colorscheme oneokai]])
+            require('oneokai').setup {
+                style = 'warmer'
+            }
+            require('oneokai').load()
         end,
     },
     {
