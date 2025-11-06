@@ -286,11 +286,11 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            -- vim.cmd([[colorscheme vitesse]])
-            require('oneokai').setup {
-                style = 'warmer'
-            }
-            require('oneokai').load()
+            vim.cmd([[colorscheme desert]])
+            --require('oneokai').setup {
+            --    style = 'warmer'
+            --}
+            --require('oneokai').load()
         end,
     },
     {
