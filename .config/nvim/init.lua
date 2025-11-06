@@ -276,8 +276,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        -- "AxelGard/oneokai.nvim",
-        "2nthony/vitesse.nvim",
+        "AxelGard/oneokai.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -287,11 +286,11 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd([[colorscheme vitesse]])
-            --require('oneokai').setup {
-            --    style = 'warmer'
-            --}
-            --require('oneokai').load()
+            -- vim.cmd([[colorscheme vitesse]])
+            require('oneokai').setup {
+                style = 'warmer'
+            }
+            require('oneokai').load()
         end,
     },
     {
