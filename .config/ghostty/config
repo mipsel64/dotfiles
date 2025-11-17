@@ -30,13 +30,13 @@ selection-foreground = #ffffff
 
 
 # Font settings
-font-family = "MesloLGS Nerd Font"
+font-family = "Liga SFMono Nerd Font"
 font-size = 13
 font-thicken = false
 font-thicken-strength = 0
 font-feature=-calt
 
-# Setting MacOs Titlebar 
+# Setting MacOs Titlebar
 macos-titlebar-style = native
 
 # Cursor settings
@@ -62,3 +62,9 @@ macos-option-as-alt = true
 # instead of select to the next window.
 #keybind = alt+h=unbind
 #keybind = alt+l=unbind
+
+# Scrolling settings
+keybind = page_up=scroll_page_up
+keybind = page_down=scroll_page_down
+keybind = shift+page_up=adjust_selection:page_up
+keybind = shift+page_down=adjust_selection:page_down
