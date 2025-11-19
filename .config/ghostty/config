@@ -30,7 +30,7 @@ selection-foreground = #ffffff
 
 
 # Font settings
-font-family = "Liga SFMono Nerd Font"
+font-family = "Hack Nerd Font"
 font-size = 13
 font-thicken = false
 font-thicken-strength = 0
