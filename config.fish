@@ -41,6 +41,7 @@ alias tg="terragrunt"
 alias tf="terraform"
 alias coder="code --remote=ssh-remote+dev.remote"
 alias unset="set --erase"
+alias bat="batcat"
 
 ## Minikube
 alias mkk="minikube kubectl --"
