@@ -1,0 +1,17 @@
+[font]
+size = 14.0
+normal.family = "CodeNewRoman Nerd Font"
+
+[window]
+decorations = "Full"
+opacity = 0.97
+option_as_alt = "Both"
+
+
+[colors]
+draw_bold_text_with_bright_colors = true
+
+[cursor]
+style = {shape="Block", blinking = "Always"}
+
+
