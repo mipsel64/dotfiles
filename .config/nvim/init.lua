@@ -276,7 +276,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "AxelGard/oneokai.nvim",
+        "everviolet/nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -287,10 +287,13 @@ require("lazy").setup {
             vim.o.termguicolors = true
             vim.o.background = "dark"
             vim.cmd([[colorscheme vim]])
-            --require('oneokai').setup {
-            --    style = 'warmer'
-            --}
-            --require('oneokai').load()
+            require('evergarden').setup {
+                theme = {
+                    variant = 'winter',
+                    accent = 'green',
+                },
+            }
+            require('evergarden').load()
         end,
     },
     {
@@ -668,7 +671,6 @@ require("lazy").setup {
             vim.g.rustaceanvim = {
                 server = {
                     on_attach = function()
-                        vim.cmd.RustAnalyzer { 'config', '{ checkOnSave = false }' }
                     end,
                 },
             }
