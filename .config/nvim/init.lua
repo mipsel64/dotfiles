@@ -394,6 +394,8 @@ require("lazy").setup {
         config = function(_, opts)
             opts.nesting_rules = require('neotree-file-nesting-config').nesting_rules
             require('neo-tree').setup(opts)
+            local events = require("neo-tree.events")
+            events.fire_event(events.GIT_EVENT)
         end,
     },
     {
@@ -515,7 +517,7 @@ require("lazy").setup {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup {
-                ensure_installed = { "lua_ls", "rust_analyzer" },
+                ensure_installed = { "lua_ls" },
             }
         end
     },
@@ -592,6 +594,9 @@ require("lazy").setup {
                 },
             }
 
+            -- Disable rust_analyzer from nvim-lspconfig since rustaceanvim manages it
+            vim.lsp.enable("rust_analyzer", false)
+
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
             vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
@@ -660,16 +665,6 @@ require("lazy").setup {
         version = '^6',
         lazy = false,
         config = function()
-            local bufnr = vim.api.nvim_get_current_buf()
-            vim.keymap.set("n", "<leader>a", function()
-                vim.cmd.RustLsp('codeAction')
-            end, { silent = true, buffer = bufnr })
-
-            vim.keymap.set("n", "K", function()
-                vim.cmd.RustLsp({ 'hover', 'action' })
-            end, { silent = true, buffer = bufnr })
-
-
             vim.g.rustaceanvim = {
                 server = {
                     on_attach = function()
