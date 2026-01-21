@@ -741,7 +741,7 @@ require("lazy").setup {
             local configs = require("nvim-treesitter.configs")
 
             configs.setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
