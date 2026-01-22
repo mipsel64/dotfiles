@@ -276,7 +276,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "everviolet/nvim",
+        "armannikoyan/rusty",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -286,14 +286,7 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd([[colorscheme vim]])
-            require('evergarden').setup {
-                theme = {
-                    variant = 'winter',
-                    accent = 'green',
-                },
-            }
-            require('evergarden').load()
+            vim.cmd("colorscheme rusty")
         end,
     },
     {
@@ -307,6 +300,44 @@ require("lazy").setup {
                 changedelete = { text = '~' },
             },
         },
+    },
+    {
+        "zbirenbaum/copilot.lua",
+        dependencies = {
+            {
+                "copilotlsp-nvim/copilot-lsp",
+                init = function()
+                    vim.g.copilot_nes_debounce = 500
+                end,
+            }
+        },
+        config = function()
+            require("copilot").setup({
+                nes = {
+                    enabled = true,
+                },
+                filetypes = {
+                    yaml = false,
+                    markdown = false,
+                    help = false,
+                    ["*"] = true,
+                },
+                keymap = {
+                    accept = "<M-CR>",
+                    next = "<M-]>",
+                    prev = "<M-[>",
+                },
+            })
+        end,
+    },
+    {
+        "nvim-neotest/neotest",
+        dependencies = {
+            "nvim-neotest/nvim-nio",
+            "nvim-lua/plenary.nvim",
+            "antoinemadec/FixCursorHold.nvim",
+            "nvim-treesitter/nvim-treesitter"
+        }
     },
     {
         'akinsho/bufferline.nvim',
@@ -325,7 +356,6 @@ require("lazy").setup {
                 stages = 'static',
             }
         end
-
     },
     {
         "folke/noice.nvim",
@@ -372,10 +402,9 @@ require("lazy").setup {
             retain_hidden_root_indent = true,
             filesystem = {
                 filtered_items = {
-                    show_hidden_count = false,
-                    never_show = {
-                        '.DS_Store',
-                    },
+                    visible = true,
+                    hide_dotfiles = false,
+                    never_show = { ".git", ".DS_Store" },
                 },
                 window = {
                     mappings = {
