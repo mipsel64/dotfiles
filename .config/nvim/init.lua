@@ -172,13 +172,6 @@ vim.keymap.set("n", "/", "/\\v")
 vim.keymap.set("c", "%s/", "%sm/")
 -- open new file adjacent to current file
 vim.keymap.set("n", "<leader>o", ':e <C-R>=expand("%:p:h") . "/" <cr>')
--- no arrow keys --- force yourself to use the home row
-vim.keymap.set("n", "<up>", "<nop>")
-vim.keymap.set("n", "<down>", "<nop>")
-vim.keymap.set("i", "<up>", "<nop>")
-vim.keymap.set("i", "<down>", "<nop>")
-vim.keymap.set("i", "<left>", "<nop>")
-vim.keymap.set("i", "<right>", "<nop>")
 -- let the left and right arrows be useful: they can switch buffers
 vim.keymap.set("n", "<left>", ":bp<cr>")
 vim.keymap.set("n", "<right>", ":bn<cr>")
