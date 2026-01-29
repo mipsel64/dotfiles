@@ -700,12 +700,35 @@ require("lazy").setup {
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^6',
+        version = '^7',
         lazy = false,
         config = function()
             vim.g.rustaceanvim = {
+                tools = {
+                    float_win_config = {
+                        auto_focus = true,
+                        border = 'rounded',
+                    },
+                },
                 server = {
                     on_attach = function()
+                        local bufnr = vim.api.nvim_get_current_buf()
+                        vim.keymap.set(
+                            "n",
+                            "<leader>a",
+                            function()
+                                vim.cmd.RustLsp('codeAction')
+                            end,
+                            { silent = true, buffer = bufnr }
+                        )
+                        vim.keymap.set(
+                            "n",
+                            "K",
+                            function()
+                                vim.cmd.RustLsp({ 'hover', 'actions' })
+                            end,
+                            { silent = true, buffer = bufnr }
+                        )
                     end,
                 },
             }
