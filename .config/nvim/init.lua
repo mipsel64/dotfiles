@@ -61,7 +61,6 @@ vim.opt.diffopt:append "iwhite"
 --- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
 vim.opt.diffopt:append "algorithm:histogram"
 vim.opt.diffopt:append "indent-heuristic"
-vim.opt.colorcolumn = ""
 --- except in Rust where the rule is 100 characters
 vim.api.nvim_create_autocmd("Filetype", { pattern = "rust", command = "set colorcolumn=100" })
 -- show more hidden characters
@@ -245,6 +244,37 @@ vim.api.nvim_create_autocmd("Filetype", {
 })
 vim.o.termguicolors = true
 vim.o.background = "dark"
+
+-- Remove colorcolumn from all files
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = { "*" },
+    callback = function()
+        vim.opt.colorcolumn = ""
+    end,
+})
+
+local function find_git_root()
+    local d = vim.fn.expand("%:p:h", nil, nil)
+    for _ = 1, 10 do
+        if vim.fn.isdirectory(d .. "/.git/") ~= 0 or vim.fn.filereadable(d .. "/.git") ~= 0 then
+            return d
+        end
+        d = d .. "/.."
+    end
+    return nil
+end
+
+vim.api.nvim_create_user_command("CdGitRootDir", function()
+    local root = find_git_root()
+    if root then
+        vim.api.nvim_set_current_dir(root)
+    end
+end, {})
+
+-- alias CdGitRootDir to cdgd
+vim.cmd([[cnoreabbrev <expr> cdgd ((getcmdtype() == ':' && getcmdline() == 'cdgd') ? 'CdGitRootDir' : 'cdgd')]])
+
+vim.o.autochdir = false
 
 -------------------------------------------------------------------------------
 --
