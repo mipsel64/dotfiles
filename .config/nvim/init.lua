@@ -61,8 +61,7 @@ vim.opt.diffopt:append "iwhite"
 --- https://luppeng.wordpress.com/2020/10/10/when-to-use-each-of-the-git-diff-algorithms/
 vim.opt.diffopt:append "algorithm:histogram"
 vim.opt.diffopt:append "indent-heuristic"
--- show a column at 80 characters as a guide for long lines
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = ""
 --- except in Rust where the rule is 100 characters
 vim.api.nvim_create_autocmd("Filetype", { pattern = "rust", command = "set colorcolumn=100" })
 -- show more hidden characters
