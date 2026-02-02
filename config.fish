@@ -291,3 +291,9 @@ end
 if test -f "$HOME/config.extra.fish"
     source "$HOME/config.extra.fish"
 end
+
+# opencode
+if test -d "$HOME/.opencode/bin"
+    fish_add_path $HOME/.opencode/bin
+    alias oc opencode
+end

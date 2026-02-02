@@ -329,7 +329,7 @@ require("lazy").setup {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -589,7 +589,6 @@ require("lazy").setup {
         "neovim/nvim-lspconfig",
         config = function()
             -- Setup language servers.
-
             -- Go
             vim.lsp.config['gopls'] = {}
 
@@ -608,6 +607,7 @@ require("lazy").setup {
                         },
                     },
                 }
+                vim.lsp.enable('bash_lsp')
             end
 
             if configs.bash_lsp then
@@ -615,7 +615,6 @@ require("lazy").setup {
             end
 
             -- Ruff for Python
-            local configs = require "lspconfig.configs"
             if not configs.ruff_lsp and vim.fn.executable "ruff-lsp" == 1 then
                 configs.ruff_lsp = {
                     default_config = {
@@ -657,6 +656,15 @@ require("lazy").setup {
                     },
                 },
             }
+
+            -- Teraform LSP
+            if vim.fn.executable "terraform-ls" == 1 then
+                vim.lsp.config['terraformls'] = {
+                    filetypes = { "terraform", "tf", "hcl" },
+                    settings = {}
+                }
+                vim.lsp.enable('terraformls')
+            end
 
             -- Disable rust_analyzer from nvim-lspconfig since rustaceanvim manages it
             vim.lsp.enable("rust_analyzer", false)
