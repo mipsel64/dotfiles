@@ -492,12 +492,9 @@ require("lazy").setup {
                 defaults = {
                     file_ignore_patterns = {
                         "%.next",
-                        "%.git/",
-                        "%.gitlab/",
-                        ".terra*",
-                        ".terra*/",
+                        ".git/",
+                        ".terragrunt/",
                         "node_modules/",
-                        ".cache/",
                         ".gsutil/",
                         ".npm",
                         "target/",
@@ -782,6 +779,9 @@ require("lazy").setup {
         config = function()
             local cmp = require "cmp"
             cmp.setup {
+                completion = {
+                    keyword_length = 1,
+                },
                 snippet = {
                     -- REQUIRED by nvim-cmp. get rid of it once we can
                     expand = function(args)
@@ -802,7 +802,10 @@ require("lazy").setup {
                     })
                 },
                 sources = cmp.config.sources({
-                    { name = "nvim_lsp" },
+                    {
+                        name = "nvim_lsp",
+                        keyword_length = 1,
+                    },
                 }, {
                     { name = "path" },
                 }, {
