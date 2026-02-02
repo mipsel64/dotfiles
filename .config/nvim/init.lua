@@ -156,6 +156,9 @@ vim.keymap.set("n", "<leader>c", "<cmd>w !wl-copy<cr><cr>")
 
 -- <leader><leader> toggles between buffers
 vim.keymap.set("n", "<leader><leader>", "<c-^>")
+-- <C--> also toggles between buffers (like <C-^>)
+-- Works with terminals supporting CSI u / Kitty keyboard protocol (Ghostty, Kitty, WezTerm)
+vim.keymap.set("n", "<C-->", "<c-^>")
 -- <leader>, shows/hides hidden characters
 vim.keymap.set("n", "<leader>,", ":set invlist<cr>")
 -- always center search results
@@ -337,36 +340,6 @@ require("lazy").setup {
         end
     },
     {
-        "zbirenbaum/copilot.lua",
-        dependencies = {
-            {
-                "copilotlsp-nvim/copilot-lsp",
-                init = function()
-                    vim.g.copilot_nes_debounce = 250
-                end,
-            }
-        },
-        config = function()
-            require("copilot").setup({
-                nes = {
-                    enabled = false,
-                },
-                filetypes = {
-                    yaml = false,
-                    markdown = false,
-                    help = false,
-                    ["*"] = true,
-                },
-                panel = {
-                    keymap = {
-                        accept = "<M-CR>",
-                        open = "<M-S-CR>",
-                    },
-                },
-            })
-        end,
-    },
-    {
         "nvim-neotest/neotest",
         dependencies = {
             "nvim-neotest/nvim-nio",
@@ -546,7 +519,7 @@ require("lazy").setup {
         "williamboman/mason-lspconfig.nvim",
         config = function()
             require("mason-lspconfig").setup {
-                ensure_installed = { "lua_ls" },
+                ensure_installed = { "lua_ls", "terraformls", "gopls", "ruff" },
             }
         end
     },
@@ -559,6 +532,7 @@ require("lazy").setup {
             vim.lsp.config['gopls'] = {
                 capabilities = capabilities
             }
+            vim.lsp.enable("gopls")
 
             -- Bash LSP
             local configs = require "lspconfig.configs"
@@ -631,13 +605,11 @@ require("lazy").setup {
             }
 
             -- Teraform LSP
-            if vim.fn.executable "terraform-ls" == 1 then
-                vim.lsp.config['terraformls'] = {
-                    filetypes = { "terraform", "tf", "hcl" },
-                    capabilities = capabilities,
-                }
-                vim.lsp.enable('terraformls')
-            end
+            vim.lsp.config['terraformls'] = {
+                filetypes = { "terraform", "tf", "hcl" },
+                capabilities = capabilities,
+            }
+            vim.lsp.enable('terraformls')
 
 
             -- Disable rust_analyzer from nvim-lspconfig since rustaceanvim manages it
