@@ -68,3 +68,5 @@ keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
 keybind = shift+page_up=adjust_selection:page_up
 keybind = shift+page_down=adjust_selection:page_down
+
+shell-integration-features = ssh-terminfo,ssh-env
