@@ -342,14 +342,14 @@ require("lazy").setup {
             {
                 "copilotlsp-nvim/copilot-lsp",
                 init = function()
-                    vim.g.copilot_nes_debounce = 500
+                    vim.g.copilot_nes_debounce = 250
                 end,
             }
         },
         config = function()
             require("copilot").setup({
                 nes = {
-                    enabled = true,
+                    enabled = false,
                 },
                 filetypes = {
                     yaml = false,
@@ -357,10 +357,11 @@ require("lazy").setup {
                     help = false,
                     ["*"] = true,
                 },
-                keymap = {
-                    accept = "<M-CR>",
-                    next = "<M-]>",
-                    prev = "<M-[>",
+                panel = {
+                    keymap = {
+                        accept = "<M-CR>",
+                        open = "<M-S-CR>",
+                    },
                 },
             })
         end,
@@ -671,14 +672,16 @@ require("lazy").setup {
 
             -- Global mappings.
             -- See `:help vim.diagnostic.*` for documentation on any of the below functions
-            vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float)
+            vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float,
+                { desc = "Show diagnostics in a floating window" })
             vim.keymap.set('n', '[d', function()
                 vim.diagnostic.jump({ count = -1, float = true })
-            end)
+            end, { desc = "Move to the previous diagnostic" })
             vim.keymap.set('n', ']d', function()
                 vim.diagnostic.jump({ count = 1, float = true })
-            end)
-            vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+            end, { desc = "Move to the next diagnostic" })
+            vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist,
+                { desc = "Add buffer diagnostics to the location list" })
 
             vim.diagnostic.config({ virtual_text = true })
 
@@ -697,23 +700,33 @@ require("lazy").setup {
                         end,
                     })
 
+
+                    local opts = function(desc)
+                        if desc == nil or desc == "" then
+                            return { buffer = ev.buf }
+                        end
+                        return { buffer = ev.buf, desc = desc }
+                    end
+
                     -- Buffer local mappings.
                     -- See `:help vim.lsp.*` for documentation on any of the below functions
-                    local opts = { buffer = ev.buf }
-                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-                    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-                    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-                    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-                    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
+                    -- {desc = "Goto to the declaration of the symbol under the cursor"}
+                    vim.keymap.set("n", "gD", vim.lsp.buf.declaration,
+                        opts("Goto to the declaration of the symbol under the cursor"))
+                    vim.keymap.set("n", "gd", vim.lsp.buf.definition,
+                        opts("Goto to the definition of the symbol under the cursor"))
+                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Display hover information for symbol under cursor"))
+                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Goto the implementation of the symbol under the cursor"))
+                    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts("Display signature help for symbol under cursor"))
+                    vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts("Add folder to workspace"))
+                    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts("Remove folder from workspace"))
                     vim.keymap.set("n", "<leader>wl", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-                    end, opts)
+                    end, opts("List workspace folders"))
                     --vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
-                    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts)
-                    vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts)
-                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
+                    vim.keymap.set("n", "<leader>r", vim.lsp.buf.rename, opts("Rename symbol under cursor"))
+                    vim.keymap.set({ "n", "v" }, "<leader>a", vim.lsp.buf.code_action, opts("Select a code action"))
+                    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts("List references to symbol under cursor"))
 
                     local client = vim.lsp.get_client_by_id(ev.data.client_id)
 
