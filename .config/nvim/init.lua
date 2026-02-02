@@ -385,42 +385,6 @@ require("lazy").setup {
         end
     },
     {
-        'rcarriga/nvim-notify',
-        config = function()
-            require('notify').setup {
-                fps = 30,
-                stages = 'static',
-            }
-        end
-    },
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        opts = {
-            lsp = {
-                override = {
-                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
-                    ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
-                },
-            },
-            presets = {
-                bottom_search = true,
-                command_palette = true,
-                long_message_to_split = true,
-                inc_rename = false,
-                lsp_doc_border = false,
-            },
-            -- walkaround issue https://github.com/folke/noice.nvim/issues/1097
-            messages = {
-                enabled = false
-            },
-        },
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-        }
-    },
-    {
         'nvim-neo-tree/neo-tree.nvim',
         version = '^3',
         dependencies = {
@@ -590,13 +554,17 @@ require("lazy").setup {
         "neovim/nvim-lspconfig",
         config = function()
             -- Setup language servers.
+            local capabilities = require('cmp_nvim_lsp').default_capabilities()
             -- Go
-            vim.lsp.config['gopls'] = {}
+            vim.lsp.config['gopls'] = {
+                capabilities = capabilities
+            }
 
             -- Bash LSP
             local configs = require "lspconfig.configs"
             if not configs.bash_lsp and vim.fn.executable "bash-language-server" == 1 then
                 configs.bash_lsp = {
+                    capabilities = capabilities,
                     default_config = {
                         cmd = { "bash-language-server", "start" },
                         filetypes = { "sh" },
@@ -612,12 +580,15 @@ require("lazy").setup {
             end
 
             if configs.bash_lsp then
-                vim.lsp.config['bash_lsp'] = {}
+                vim.lsp.config['bash_lsp'] = {
+                    capabilities = capabilities
+                }
             end
 
             -- Ruff for Python
             if not configs.ruff_lsp and vim.fn.executable "ruff-lsp" == 1 then
                 configs.ruff_lsp = {
+                    capabilities = capabilities,
                     default_config = {
                         cmd = { "ruff-lsp" },
                         filetypes = { "python" },
@@ -631,10 +602,11 @@ require("lazy").setup {
                 }
             end
             if configs.ruff_lsp then
-                vim.lsp.config['ruff_lsp'] = {}
+                vim.lsp.config['ruff_lsp'] = { capabilities = capabilities }
             end
 
             vim.lsp.config['lua_ls'] = {
+                capabilities = capabilities,
                 settings = {
                     Lua = {
                         runtime = {
@@ -662,10 +634,11 @@ require("lazy").setup {
             if vim.fn.executable "terraform-ls" == 1 then
                 vim.lsp.config['terraformls'] = {
                     filetypes = { "terraform", "tf", "hcl" },
-                    settings = {}
+                    capabilities = capabilities,
                 }
                 vim.lsp.enable('terraformls')
             end
+
 
             -- Disable rust_analyzer from nvim-lspconfig since rustaceanvim manages it
             vim.lsp.enable("rust_analyzer", false)
@@ -683,7 +656,7 @@ require("lazy").setup {
             vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist,
                 { desc = "Add buffer diagnostics to the location list" })
 
-            vim.diagnostic.config({ virtual_text = true })
+            vim.diagnostic.config({ virtual_text = true, float = { border = "rounded" } })
 
             -- Use LspAttach autocommand to only map the following keys
             -- after the language server attaches to the current buffer
@@ -708,6 +681,7 @@ require("lazy").setup {
                         return { buffer = ev.buf, desc = desc }
                     end
 
+
                     -- Buffer local mappings.
                     -- See `:help vim.lsp.*` for documentation on any of the below functions
                     -- {desc = "Goto to the declaration of the symbol under the cursor"}
@@ -715,11 +689,15 @@ require("lazy").setup {
                         opts("Goto to the declaration of the symbol under the cursor"))
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition,
                         opts("Goto to the definition of the symbol under the cursor"))
-                    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts("Display hover information for symbol under cursor"))
-                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts("Goto the implementation of the symbol under the cursor"))
-                    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts("Display signature help for symbol under cursor"))
+                    vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end,
+                        opts("Display hover information for symbol under cursor"))
+                    vim.keymap.set("n", "gi", vim.lsp.buf.implementation,
+                        opts("Goto the implementation of the symbol under the cursor"))
+                    vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end,
+                        opts("Display signature help for symbol under cursor"))
                     vim.keymap.set("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts("Add folder to workspace"))
-                    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts("Remove folder from workspace"))
+                    vim.keymap.set("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder,
+                        opts("Remove folder from workspace"))
                     vim.keymap.set("n", "<leader>wl", function()
                         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
                     end, opts("List workspace folders"))
@@ -796,12 +774,57 @@ require("lazy").setup {
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
             "hrsh7th/vim-vsnip",
+            "onsails/lspkind.nvim",
         },
         config = function()
             local cmp = require "cmp"
+            local types = require "cmp.types"
+
+            -- Custom comparator to prioritize functions/methods
+            local function prioritize_functions(entry1, entry2)
+                local kind1 = entry1:get_kind()
+                local kind2 = entry2:get_kind()
+                local function_kinds = {
+                    [types.lsp.CompletionItemKind.Function] = true,
+                    [types.lsp.CompletionItemKind.Method] = true,
+                    [types.lsp.CompletionItemKind.Constructor] = true,
+                }
+                local is_func1 = function_kinds[kind1] or false
+                local is_func2 = function_kinds[kind2] or false
+                if is_func1 ~= is_func2 then
+                    return is_func1
+                end
+                return nil -- fall back to other comparators
+            end
+
             cmp.setup {
                 completion = {
                     keyword_length = 1,
+                },
+                window = {
+                    completion = { border = "rounded" },
+                    documentation = { border = "rounded" }
+                },
+                sorting = {
+                    priority_weight = 2,
+                    comparators = {
+                        prioritize_functions,
+                        cmp.config.compare.offset,
+                        cmp.config.compare.exact,
+                        cmp.config.compare.score,
+                        cmp.config.compare.recently_used,
+                        cmp.config.compare.locality,
+                        cmp.config.compare.kind,
+                        cmp.config.compare.length,
+                        cmp.config.compare.order,
+                    },
+                },
+                formatting = {
+                    format = require("lspkind").cmp_format({
+                        mode = "symbol_text",
+                        maxwidth = 50,
+                        ellipsis_char = "...",
+                    }),
                 },
                 snippet = {
                     -- REQUIRED by nvim-cmp. get rid of it once we can
@@ -836,6 +859,7 @@ require("lazy").setup {
                     ghost_text = true,
                 },
             }
+
 
             -- Enable completing paths in :
             cmp.setup.cmdline(":", {
