@@ -112,8 +112,6 @@ vim.keymap.set("v", "<C-r>", "\"hy:%s/<C-r>h//gc<left><left><left>", { desc = "R
 -- hotkeys
 --
 -------------------------------------------------------------------------------
--- quick-open
-vim.keymap.set("", "<C-p>", "<cmd>Files<cr>")
 -- search buffers
 vim.keymap.set("n", "<leader>;", "<cmd>Buffers<cr>")
 -- quick-save
@@ -184,6 +182,8 @@ vim.keymap.set("n", "<leader>m", "ct_")
 -- F1 is pretty close to Esc, so you probably meant Esc
 vim.keymap.set("", "<F1>", "<Esc>")
 vim.keymap.set("i", "<F1>", "<Esc>")
+
+vim.o.scrolloff = 8
 
 -------------------------------------------------------------------------------
 --
@@ -464,7 +464,7 @@ require("lazy").setup {
             end
 
             vim.keymap.set('n', '<leader>ff', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
-            vim.keymap.set('n', '<C-p>', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
+            vim.keymap.set('n', '<C-P>', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
 
             vim.keymap.set('n', '<leader>/', function()
                 builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
