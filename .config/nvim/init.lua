@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "armannikoyan/rusty",
+        "rebelot/kanagawa.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -311,8 +311,13 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd("colorscheme rusty")
+            vim.cmd("colorscheme kanagawa-dragon")
         end,
+    },
+    {
+        'windwp/nvim-autopairs',
+        event = "InsertEnter",
+        config = true
     },
     {
         'lewis6991/gitsigns.nvim',
@@ -332,7 +337,7 @@ require("lazy").setup {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl", "rust" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
