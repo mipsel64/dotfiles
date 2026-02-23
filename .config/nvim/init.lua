@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "projekt0n/github-nvim-theme",
+        "ellisonleao/gruvbox.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -311,7 +311,7 @@ require("lazy").setup {
         config = function()
             vim.o.termguicolors = true
             vim.o.background = "dark"
-            vim.cmd("colorscheme github_dark_dimmed")
+            vim.cmd("colorscheme gruvbox")
         end,
     },
     {
