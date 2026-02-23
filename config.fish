@@ -59,6 +59,10 @@ alias gc="git commit"
 alias grb="git rebase"
 alias gap="git add -p"
 
+# color
+set fish_color_param brcccccc
+set fish_color_autosuggestion 666666
+
 ## Go setup
 if test -d /usr/local/go/bin
   fish_add_path /usr/local/go/bin
