@@ -30,8 +30,8 @@ selection-foreground = #ffffff
 
 
 # Font settings
-font-family = "JetbrainsMono Nerd Font"
-font-size = 13
+font-family = "CaskaydiaMono Nerd Font"
+font-size = 14
 font-thicken = false
 font-thicken-strength = 0
 font-feature=-calt
