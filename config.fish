@@ -42,6 +42,7 @@ alias tf="terraform"
 alias coder="code --remote=ssh-remote+dev.remote"
 alias unset="set --erase"
 alias bat="batcat"
+alias oc="opencode"
 
 ## Minikube
 alias mkk="minikube kubectl --"
@@ -300,8 +301,3 @@ if test -f "$HOME/config.extra.fish"
     source "$HOME/config.extra.fish"
 end
 
-# opencode
-if test -d "$HOME/.opencode/bin"
-    fish_add_path $HOME/.opencode/bin
-    alias oc opencode
-end
