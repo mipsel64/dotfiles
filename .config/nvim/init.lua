@@ -301,8 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        -- "f4z3r/gruvbox-material.nvim",
-        'AlexvZyl/nordic.nvim',
+        "AlexvZyl/nordic.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -310,7 +309,7 @@ require("lazy").setup {
             'tjdevries/colorbuddy.nvim',
         },
         config = function()
-            -- vim.o.termguicolors = true
+            vim.o.termguicolors = true
             vim.o.background = "dark"
             vim.cmd("colorscheme nordic")
         end,
