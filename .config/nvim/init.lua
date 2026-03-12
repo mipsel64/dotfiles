@@ -309,8 +309,7 @@ require("lazy").setup {
             'tjdevries/colorbuddy.nvim',
         },
         config = function()
-            vim.o.termguicolors = true
-            vim.o.background = "dark"
+            -- vim.o.termguicolors = true
             vim.cmd("colorscheme nordic")
         end,
     },
@@ -493,7 +492,8 @@ require("lazy").setup {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = 'auto',
+                    -- theme = 'auto',
+                    theme = 'nordic',
                     component_separators = { left = '|', right = '|' },
                     section_separators = { left = '', right = '' },
                 },
@@ -842,6 +842,43 @@ require("lazy").setup {
             cmp.setup.cmdline(":", {
                 sources = cmp.config.sources {
                     { name = "path" },
+                },
+            })
+        end,
+    },
+    -- GitHub Copilot
+    {
+        "zbirenbaum/copilot.lua",
+        event = "InsertEnter",
+        config = function()
+            require("copilot").setup({
+                suggestion = {
+                    enabled = true,
+                    auto_trigger = true,
+                    keymap = {
+                        accept = "<M-CR>",
+                        next = "<M-]>",
+                        prev = "<M-[>",
+                        dismiss = "<C-]>",
+                    },
+                },
+                panel = {
+                    enabled = false,
+                    keymap = { open = false },
+                },
+                filetypes = {
+                    c = true,
+                    lua = true,
+                    vim = true,
+                    vimdoc = true,
+                    query = true,
+                    go = true,
+                    python = true,
+                    bash = true,
+                    yaml = true,
+                    terraform = true,
+                    hcl = true,
+                    rust = true,
                 },
             })
         end,
