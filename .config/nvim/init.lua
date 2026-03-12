@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "AlexvZyl/nordic.nvim",
+        "EdenEast/nightfox.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -309,8 +309,7 @@ require("lazy").setup {
             'tjdevries/colorbuddy.nvim',
         },
         config = function()
-            -- vim.o.termguicolors = true
-            vim.cmd("colorscheme nordic")
+            vim.cmd("colorscheme nordfox")
         end,
     },
     {
@@ -492,10 +491,12 @@ require("lazy").setup {
         config = function()
             require('lualine').setup({
                 options = {
-                    -- theme = 'auto',
-                    theme = 'nordic',
-                    component_separators = { left = '|', right = '|' },
-                    section_separators = { left = '', right = '' },
+                    theme = 'auto',
+                    options = {
+                        -- The triangle separators
+                        section_separators = { left = '', right = '' },
+                        component_separators = { left = '', right = '' },
+                    }
                 },
                 sections = {
                     lualine_c = {
