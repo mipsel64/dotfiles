@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "EdenEast/nightfox.nvim",
+        "sainnhe/gruvbox-material",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -309,7 +309,9 @@ require("lazy").setup {
             'tjdevries/colorbuddy.nvim',
         },
         config = function()
-            vim.cmd("colorscheme nordfox")
+            vim.o.termguicolors = true
+            vim.o.background = 'dark'
+            vim.cmd("colorscheme gruvbox-material")
         end,
     },
     {
@@ -647,7 +649,7 @@ require("lazy").setup {
                     vim.api.nvim_create_autocmd("BufWritePre", {
                         buffer = ev.buf,
                         callback = function()
-                            vim.lsp.buf.format { async = false, id = ev.data.client_id }
+                            vim.lsp.buf.format { async = false }
                         end,
                     })
 
@@ -910,7 +912,7 @@ require("lazy").setup {
         "rust-lang/rust.vim",
         ft = { "rust" },
         config = function()
-            vim.g.rustfmt_autosave = 1
+            vim.g.rustfmt_autosave = 0
             vim.g.rustfmt_emit_files = 1
             vim.g.rustfmt_fail_silently = 0
             vim.g.rust_clip_command = "wl-copy"

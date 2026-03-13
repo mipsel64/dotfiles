@@ -4,7 +4,7 @@ shell-integration = fish
 # background-opacity = 0.97
 
 # Font settings
-font-family = "JetbrainsMono Nerd Font"
+font-family = "CaskaydiaCove Nerd Font"
 font-size = 12
 background-opacity = 0.95
 background-blur-radius = 20
