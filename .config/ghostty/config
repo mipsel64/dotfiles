@@ -1,6 +1,6 @@
 window-theme = "system"
 shell-integration = fish
-# theme = "nord"
+theme = Kanagawa Dragon
 # background-opacity = 0.97
 
 # Font settings
