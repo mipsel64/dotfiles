@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "rebelot/kanagawa.nvim",
+        "vague-theme/vague.nvim",
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -309,9 +309,12 @@ require("lazy").setup {
             'tjdevries/colorbuddy.nvim',
         },
         config = function()
-            vim.o.termguicolors = true
-            vim.o.background = 'dark'
-            vim.cmd("colorscheme kanagawa-dragon")
+            -- vim.o.termguicolors = true
+            -- vim.o.background = 'dark'
+            require('vague').setup({
+                bold = false,
+            })
+            vim.cmd("colorscheme vague")
         end,
     },
     {

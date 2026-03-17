@@ -1,11 +1,10 @@
 window-theme = "system"
 shell-integration = fish
-theme = Kanagawa Dragon
-# background-opacity = 0.97
+theme = Vague
 
 # Font settings
-font-family = "CaskaydiaCove Nerd Font"
-font-size = 12
+font-family = "JetbrainsMono Nerd Font"
+font-size = 13
 background-opacity = 0.95
 background-blur-radius = 20
 macos-non-native-fullscreen = visible-menu
