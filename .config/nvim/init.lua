@@ -340,7 +340,7 @@ require("lazy").setup {
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
-                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl", "rust" },
+                ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl", "rust", "proto" },
                 sync_install = false,
                 highlight = { enable = true },
                 indent = { enable = true },
@@ -615,6 +615,14 @@ require("lazy").setup {
                 },
             }
 
+            -- Prototbuf LSP
+            vim.lsp.config('buf-lsp', {
+                cmd = { 'buf', 'lsp', 'serve' },
+                filetypes = { 'proto' },
+                root_markers = { 'buf.yaml', '.git' },
+            })
+            vim.lsp.enable('buf-lsp')
+
             -- Teraform LSP
             vim.lsp.config['terraformls'] = {
                 filetypes = { "terraform", "tf", "hcl" },
@@ -708,7 +716,7 @@ require("lazy").setup {
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^7',
+        version = '^8',
         lazy = false,
         config = function()
             vim.g.rustaceanvim = {
