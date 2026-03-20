@@ -1,6 +1,6 @@
 window-theme = "system"
 shell-integration = fish
-theme = Vague
+theme = Terminal Basic Dark
 
 # Font settings
 font-family = "JetbrainsMono Nerd Font"

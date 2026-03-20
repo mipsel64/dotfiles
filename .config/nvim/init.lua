@@ -301,7 +301,7 @@ vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
     {
-        "vague-theme/vague.nvim",
+        'mhartington/oceanic-next',
         lazy = false,    -- load at start
         priority = 1000, -- load firstl
         dependencies = {
@@ -311,10 +311,7 @@ require("lazy").setup {
         config = function()
             -- vim.o.termguicolors = true
             -- vim.o.background = 'dark'
-            require('vague').setup({
-                bold = false,
-            })
-            vim.cmd("colorscheme vague")
+            vim.cmd("colorscheme OceanicNext")
         end,
     },
     {
