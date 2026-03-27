@@ -300,24 +300,37 @@ end
 vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
-    {
-        'mhartington/oceanic-next',
-        lazy = false,    -- load at start
-        priority = 1000, -- load firstl
-        dependencies = {
-            'rktjmp/lush.nvim',
-            'tjdevries/colorbuddy.nvim',
-        },
-        config = function()
-            -- vim.o.termguicolors = true
-            -- vim.o.background = 'dark'
-            vim.cmd("colorscheme OceanicNext")
-        end,
-    },
+    -- OceanicNext kept as a fallback if needed (:colorscheme OceanicNext)
+    { 'mhartington/oceanic-next', lazy = true },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
         config = true
+    },
+    {
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        opts = {
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                },
+            },
+            -- you can enable a preset for easier configuration
+            presets = {
+                bottom_search = true,         -- use a classic bottom cmdline for search
+                command_palette = true,       -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = false,           -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = false,       -- add a border to hover docs and signature help
+            },
+        },
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+        }
     },
     {
         'lewis6991/gitsigns.nvim',
@@ -448,7 +461,10 @@ require("lazy").setup {
             pcall(require('telescope').load_extension, 'fzf')
             pcall(require('telescope').load_extension, 'ui-select')
 
+
+
             local builtin = require 'telescope.builtin'
+
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
             vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
             vim.keymap.set('n', '<leader>fs', builtin.builtin, { desc = '[F]ind [S]elect Telescope' })
@@ -458,6 +474,7 @@ require("lazy").setup {
             vim.keymap.set('n', '<leader>fr', builtin.resume, { desc = '[F]ind [R]esume' })
             vim.keymap.set('n', '<leader>f.', builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
             vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
+            vim.keymap.set("n", "<leader>d", ":bd<CR>")
 
             local find_files = function()
                 builtin.find_files { hidden = true }
@@ -948,3 +965,6 @@ require("lazy").setup {
         end,
     },
 }
+
+-- Load colorscheme (local: colors/onehalfdark.lua)
+vim.cmd("colorscheme onehalfdark")
