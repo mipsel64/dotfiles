@@ -510,24 +510,17 @@ require("lazy").setup {
         config = function()
             require('lualine').setup({
                 options = {
-                    theme = 'auto',
-                    options = {
-                        -- The triangle separators
-                        section_separators = { left = '', right = '' },
-                        component_separators = { left = '', right = '' },
-                    }
+                    theme = 'onehalfdark',
+                    section_separators = { left = '', right = '' },
+                    component_separators = { left = '', right = '' },
                 },
                 sections = {
-                    lualine_b = {
-                        { 'branch' },
-                        { 'overseer' },
+                    lualine_c = {
                         {
                             'filename',
                             file_status = true,
                             path = 1,
-                        }
-                    },
-                    lualine_c = {
+                        },
                         {
                             function()
                                 local reg = vim.fn.reg_recording()
