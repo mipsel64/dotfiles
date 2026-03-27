@@ -518,12 +518,26 @@ require("lazy").setup {
                     }
                 },
                 sections = {
-                    lualine_c = {
+                    lualine_b = {
+                        { 'branch' },
+                        { 'overseer' },
                         {
                             'filename',
                             file_status = true,
                             path = 1,
                         }
+                    },
+                    lualine_c = {
+                        {
+                            function()
+                                local reg = vim.fn.reg_recording()
+                                return ' recording to ' .. reg
+                            end,
+                            color = 'DiagnosticError',
+                            cond = function()
+                                return vim.fn.reg_recording() ~= ''
+                            end,
+                        },
                     },
                 },
             })
