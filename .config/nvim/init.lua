@@ -514,6 +514,7 @@ require("lazy").setup {
                     section_separators = { left = '', right = '' },
                     component_separators = { left = '', right = '' },
                 },
+                extensions = { 'nvim-tree' },
                 sections = {
                     lualine_c = {
                         {
