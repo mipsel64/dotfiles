@@ -35,6 +35,7 @@ alias kns="kubens"
 alias vg="vagrant"
 alias reset-gpg="gpgconf --kill gpg-agent"
 alias glp="git pull && git push"
+alias gpf="git push --force-with-lease"
 alias sd="sudo shutdown -h"
 alias todev='ssh dev.remote'
 alias tg="terragrunt"

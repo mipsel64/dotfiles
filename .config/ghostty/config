@@ -1,8 +1,9 @@
+config-file = ?~/.ghostty
+
 window-theme = "system"
 shell-integration = fish
 
 # Font settings
-font-family = "JetbrainsMono Nerd Font"
 font-size = 13
 background-opacity = 0.95
 background-blur-radius = 20
