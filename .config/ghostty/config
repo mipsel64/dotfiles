@@ -3,16 +3,13 @@ config-file = ?~/.ghostty
 window-theme = "system"
 shell-integration = fish
 
+
 # Font settings
 font-size = 13
-background-opacity = 0.95
-background-blur-radius = 20
+font-family = "JetBrainsMono Nerd Font"
 macos-non-native-fullscreen = visible-menu
 macos-option-as-alt = left
 mouse-hide-while-typing = true
-
-# Setting MacOs Titlebar
-macos-titlebar-style = native
 
 # Cursor settings
 cursor-style = block
