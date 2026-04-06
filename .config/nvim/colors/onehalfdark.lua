@@ -28,7 +28,7 @@ local c = {
     blue         = "#61afef",
     purple       = "#c678dd",
     cyan         = "#4a9ea8",
-    white        = "#d1c7b1",
+    white        = "#d3c6aa",
 
     comment      = "#9ca5b4",
     gutter_bg    = "#282c34",
