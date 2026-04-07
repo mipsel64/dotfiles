@@ -297,11 +297,24 @@ if not vim.loop.fs_stat(lazypath) then
         lazypath,
     }
 end
+vim.opt.rtp:append("/usr/local/bin/fzf")
 vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
-    -- OceanicNext kept as a fallback if needed (:colorscheme OceanicNext)
-    { 'mhartington/oceanic-next', lazy = true },
+    {
+        "neanias/everforest-nvim",
+        version = false,
+        lazy = false,
+        priority = 1000,
+        config = function()
+            require("everforest").setup {
+                background = "medium",
+                transparent_background_level = 0,
+                italics = true,
+            }
+            vim.cmd.colorscheme "everforest"
+        end,
+    },
     {
         'windwp/nvim-autopairs',
         event = "InsertEnter",
@@ -346,10 +359,9 @@ require("lazy").setup {
     },
     {
         "nvim-treesitter/nvim-treesitter",
-        version = '0.10',
         build = ":TSUpdate",
         config = function()
-            require("nvim-treesitter.configs").setup({
+            require("nvim-treesitter.config").setup({
                 ensure_installed = { "c", "lua", "vim", "vimdoc", "query", "go", "python", "bash", "yaml", "terraform", "hcl", "rust", "proto" },
                 sync_install = false,
                 highlight = { enable = true },
@@ -413,6 +425,40 @@ require("lazy").setup {
                     expander_expanded = '',
                 },
             },
+            window = {
+                mappings = {
+                    ['Y'] = function(state)
+                        local node = state.tree:get_node()
+                        local filepath = node:get_id()
+                        local filename = node.name
+                        local modify = vim.fn.fnamemodify
+
+                        local results = {
+                            filepath,
+                            modify(filepath, ':.'),
+                            modify(filepath, ':~'),
+                            filename,
+                            modify(filename, ':r'),
+                            modify(filename, ':e'),
+                        }
+
+                        vim.ui.select({
+                            '1. Absolute path: ' .. results[1],
+                            '2. Path relative to CWD: ' .. results[2],
+                            '3. Path relative to HOME: ' .. results[3],
+                            '4. Filename: ' .. results[4],
+                            '5. Filename without extension: ' .. results[5],
+                            '6. Extension of the filename: ' .. results[6],
+                        }, { prompt = 'Choose to copy to clipboard:' }, function(choice)
+                            if not choice then return end
+                            local i = tonumber(choice:sub(1, 1))
+                            local result = results[i]
+                            vim.fn.setreg('+', result)
+                            vim.notify('Copied: ' .. result)
+                        end)
+                    end
+                }
+            }
         },
         config = function(_, opts)
             opts.nesting_rules = require('neotree-file-nesting-config').nesting_rules
@@ -973,6 +1019,3 @@ require("lazy").setup {
         end,
     },
 }
-
--- Load colorscheme (local: colors/onehalfdark.lua)
-vim.cmd("colorscheme onehalfdark")
