@@ -311,6 +311,13 @@ require("lazy").setup {
                 background = "medium",
                 transparent_background_level = 0,
                 italics = true,
+                on_highlights = function(hl, palette)
+                    hl.NeoTreeGitModified = { fg = palette.yellow }
+                    hl.NeoTreeGitAdded = { fg = palette.green }
+                    hl.NeoTreeGitDeleted = { fg = palette.red }
+                    hl.NeoTreeGitConflict = { fg = palette.red }
+                    hl.NeoTreeGitUntracked = { fg = palette.aqua }
+                end,
             }
             vim.cmd.colorscheme "everforest"
         end,
