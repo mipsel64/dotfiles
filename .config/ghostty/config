@@ -28,7 +28,7 @@ shell-integration = fish
 
 # Font settings
 font-size = 13
-font-family = "JetBrainsMono Nerd Font"
+#font-family = "JetBrainsMono Nerd Font"
 macos-non-native-fullscreen = visible-menu
 macos-option-as-alt = left
 mouse-hide-while-typing = true
