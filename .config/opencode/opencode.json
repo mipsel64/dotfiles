@@ -4,6 +4,7 @@
   "plugin": ["opencode-claude-auth"],
   "agent": {
     "coder": {
+        "enable1mContext": true,
       "description": "Primary coding agent using Claude Opus 4.6",
       "mode": "primary",
       "model": "anthropic/claude-opus-4-6",
