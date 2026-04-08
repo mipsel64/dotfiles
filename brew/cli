@@ -27,3 +27,10 @@ lua-language-server
 borders
 fisher
 fd
+helm
+opentofu
+terragrunt
+orbstack
+go
+uv
+
