@@ -365,6 +365,21 @@ require("lazy").setup {
         }
     },
     {
+        'akinsho/toggleterm.nvim',
+        version = "*",
+        opts = {
+            open_mapping = [[<leader>t]],
+            direction = 'horizontal',
+            size = function(term)
+                if term.direction == "horizontal" then
+                    return 20
+                elseif term.direction == "vertical" then
+                    return vim.o.columns * 0.4
+                end
+            end
+        }
+    },
+    {
         'lewis6991/gitsigns.nvim',
         opts = {
             signs = {
