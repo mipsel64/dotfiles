@@ -1,6 +1,6 @@
 config-file = ?~/.ghostty
 
-background = 2D3339
+background = 282E32
 foreground = D3C6AA
 cursor-color = D3C6AA
 selection-background = 543A48

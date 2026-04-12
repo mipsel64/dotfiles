@@ -62,7 +62,7 @@ vim.opt.diffopt:append "iwhite"
 vim.opt.diffopt:append "algorithm:histogram"
 vim.opt.diffopt:append "indent-heuristic"
 --- except in Rust where the rule is 100 characters
-vim.api.nvim_create_autocmd("Filetype", { pattern = "rust", command = "set colorcolumn=100" })
+vim.api.nvim_create_autocmd("FileType", { pattern = "rust", command = "set colorcolumn=100" })
 -- show more hidden characters
 -- also, show tabs nicer
 vim.opt.list = true
@@ -225,7 +225,7 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
 })
 -- also, produce "flowed text" wrapping
 -- https://brianbuccola.com/line-breaks-in-mutt-and-vim/
-vim.api.nvim_create_autocmd("Filetype", {
+vim.api.nvim_create_autocmd("FileType", {
     pattern = "mail",
     group = email,
     command = "setlocal formatoptions+=w",
@@ -233,14 +233,14 @@ vim.api.nvim_create_autocmd("Filetype", {
 -- shorter columns in text because it reads better that way
 local text = vim.api.nvim_create_augroup("text", { clear = true })
 for _, pat in ipairs { "text", "markdown", "mail", "gitcommit" } do
-    vim.api.nvim_create_autocmd("Filetype", {
+    vim.api.nvim_create_autocmd("FileType", {
         pattern = pat,
         group = text,
         command = "setlocal spell tw=72 colorcolumn=73",
     })
 end
 --- tex has so much syntax that a little wider is ok
-vim.api.nvim_create_autocmd("Filetype", {
+vim.api.nvim_create_autocmd("FileType", {
     pattern = "tex",
     group = text,
     command = "setlocal spell tw=80 colorcolumn=81",
@@ -308,7 +308,7 @@ require("lazy").setup {
         priority = 1000,
         config = function()
             require("everforest").setup {
-                background = "medium",
+                background = "hard",
                 transparent_background_level = 0,
                 italics = true,
                 on_highlights = function(hl, palette)
@@ -388,6 +388,23 @@ require("lazy").setup {
                 delete = { text = '_' },
                 topdelete = { text = '‾' },
                 changedelete = { text = '~' },
+            },
+        },
+    },
+    {
+        "obsidian-nvim/obsidian.nvim",
+        version = "*",
+        opts = {
+            legacy_commands = false,
+            workspaces = {
+                {
+                    name = "wiki",
+                    path = "~/vaults/wiki",
+                },
+                {
+                    name = "personal",
+                    path = "~/vaults/personal",
+                },
             },
         },
     },
