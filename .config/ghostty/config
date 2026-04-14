@@ -1,30 +1,31 @@
 config-file = ?~/.ghostty
 
-background = 282E32
-foreground = D3C6AA
-cursor-color = D3C6AA
-selection-background = 543A48
-selection-foreground = D3C6AA
-
-palette = 0=#232A2E
-palette = 1=#E67E80
-palette = 2=#A7C080
-palette = 3=#DBBC7F
-palette = 4=#7FBBB3
-palette = 5=#D699B6
-palette = 6=#83C092
-palette = 7=#9DA9A0
-palette = 8=#7A8478
-palette = 9=#E67E80
-palette = 10=#A7C080
-palette = 11=#DBBC7F
-palette = 12=#7FBBB3
-palette = 13=#D699B6
-palette = 14=#83C092
-palette = 15=#D3C6AA
-
 window-theme = "system"
 shell-integration = fish
+
+# Gruvchad theme
+palette = 0=#2d2f30
+palette = 1=#d97368
+palette = 2=#adb46a
+palette = 3=#dbbf84
+palette = 4=#89ada3
+palette = 5=#c68a9c
+palette = 6=#91af81
+palette = 7=#bdb198
+palette = 8=#414344
+palette = 9=#d97368
+palette = 10=#adb46a
+palette = 11=#dbbf84
+palette = 12=#89ada3
+palette = 13=#c68a9c
+palette = 14=#91af81
+palette = 15=#c4b89f
+
+background = #1f2122
+foreground = #bdb198
+selection-background = #414344
+selection-foreground = #c4b89f
+cursor-color = #dbbf84
 
 # Font settings
 font-size = 13

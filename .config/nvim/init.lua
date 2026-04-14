@@ -196,6 +196,19 @@ vim.o.scrolloff = 8
 --   command = "silent! lua vim.highlight.on_yank({ timeout = 100 })",
 -- })
 
+-- workaround for treesitter highlighting getting out of sync
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/3363
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TextChanged", "InsertLeave" }, {
+    pattern = "*",
+    callback = function(ev)
+        local buf = ev.buf
+        if vim.bo[buf].filetype ~= "" and vim.treesitter.highlighter.active[buf] then
+            vim.treesitter.stop(buf)
+            vim.treesitter.start(buf)
+        end
+    end,
+})
+
 -- jump to last edit position on opening file
 vim.api.nvim_create_autocmd("BufReadPost", {
     pattern = "*",
@@ -279,6 +292,8 @@ vim.cmd([[cnoreabbrev <expr> cdgd ((getcmdtype() == ':' && getcmdline() == 'cdgd
 
 vim.o.autochdir = false
 
+vim.g.base46_cache = vim.fn.stdpath "data" .. "/base46_cache/"
+
 -------------------------------------------------------------------------------
 --
 -- plugin configuration
@@ -301,25 +316,20 @@ vim.opt.rtp:append("/usr/local/bin/fzf")
 vim.opt.rtp:prepend(lazypath)
 -- then, setup!
 require("lazy").setup {
+    "nvim-lua/plenary.nvim",
+    { "nvim-tree/nvim-web-devicons", lazy = true },
+
     {
-        "neanias/everforest-nvim",
-        version = false,
-        lazy = false,
-        priority = 1000,
+        "nvchad/ui",
         config = function()
-            require("everforest").setup {
-                background = "hard",
-                transparent_background_level = 0,
-                italics = true,
-                on_highlights = function(hl, palette)
-                    hl.NeoTreeGitModified = { fg = palette.yellow }
-                    hl.NeoTreeGitAdded = { fg = palette.green }
-                    hl.NeoTreeGitDeleted = { fg = palette.red }
-                    hl.NeoTreeGitConflict = { fg = palette.red }
-                    hl.NeoTreeGitUntracked = { fg = palette.aqua }
-                end,
-            }
-            vim.cmd.colorscheme "everforest"
+            require "nvchad"
+        end
+    },
+    {
+        "nvchad/base46",
+        lazy = true,
+        build = function()
+            require("base46").load_all_highlights()
         end,
     },
     {
@@ -362,6 +372,7 @@ require("lazy").setup {
         },
         dependencies = {
             "MunifTanjim/nui.nvim",
+            "folke/snacks.nvim",
         }
     },
     {
@@ -411,8 +422,9 @@ require("lazy").setup {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
+        version = "v0.10",
         config = function()
-            require("nvim-treesitter.config").setup({
+            require("nvim-treesitter.configs").setup({
                 ensure_installed = {
                     "c",
                     "lua",
@@ -422,6 +434,7 @@ require("lazy").setup {
                     "go",
                     "python",
                     "bash",
+                    "regex",
                     "yaml",
                     "terraform",
                     "hcl",
@@ -575,7 +588,6 @@ require("lazy").setup {
             pcall(require('telescope').load_extension, 'ui-select')
 
 
-
             local builtin = require 'telescope.builtin'
 
             vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
@@ -615,40 +627,6 @@ require("lazy").setup {
             end, { desc = '[F]ind [N]eovim files' })
         end,
     },
-    {
-        'nvim-lualine/lualine.nvim',
-        dependencies = {
-            'nvim-tree/nvim-web-devicons',
-        },
-        config = function()
-            require('lualine').setup({
-                options = {
-                    theme = 'auto',
-                    section_separators = { left = '', right = '' },
-                    component_separators = { left = '', right = '' },
-                },
-                extensions = { 'nvim-tree' },
-                sections = {
-                    lualine_c = {
-                        {
-                            'filename',
-                            file_status = true,
-                            path = 1,
-                        },
-                        {
-                            function()
-                                local reg = vim.fn.reg_recording()
-                                return ' recording to ' .. reg
-                            end,
-                            color = 'DiagnosticError',
-                            cond = function()
-                                return vim.fn.reg_recording() ~= ''
-                            end,
-                        },
-                    },
-                },
-            })
-        end },
     {
         "j-hui/fidget.nvim",
         opts = {},
@@ -906,21 +884,24 @@ require("lazy").setup {
             local cmp = require "cmp"
             local types = require "cmp.types"
 
-            -- Custom comparator to prioritize functions/methods
-            local function prioritize_functions(entry1, entry2)
-                local kind1 = entry1:get_kind()
-                local kind2 = entry2:get_kind()
-                local function_kinds = {
-                    [types.lsp.CompletionItemKind.Function] = true,
-                    [types.lsp.CompletionItemKind.Method] = true,
-                    [types.lsp.CompletionItemKind.Constructor] = true,
-                }
-                local is_func1 = function_kinds[kind1] or false
-                local is_func2 = function_kinds[kind2] or false
-                if is_func1 ~= is_func2 then
-                    return is_func1
+            -- Custom comparator: field > function/method > snippet > rest
+            local kind_priority = {
+                [types.lsp.CompletionItemKind.Field] = 1,
+                [types.lsp.CompletionItemKind.Property] = 1,
+                [types.lsp.CompletionItemKind.Variable] = 2,
+                [types.lsp.CompletionItemKind.Method] = 3,
+                [types.lsp.CompletionItemKind.Function] = 3,
+                [types.lsp.CompletionItemKind.Constructor] = 3,
+                [types.lsp.CompletionItemKind.Snippet] = 4,
+            }
+            local default_priority = 5
+            local function kind_comparator(entry1, entry2)
+                local p1 = kind_priority[entry1:get_kind()] or default_priority
+                local p2 = kind_priority[entry2:get_kind()] or default_priority
+                if p1 ~= p2 then
+                    return p1 < p2
                 end
-                return nil -- fall back to other comparators
+                return nil
             end
 
             cmp.setup {
@@ -929,12 +910,12 @@ require("lazy").setup {
                 },
                 window = {
                     completion = { border = "rounded" },
-                    documentation = { border = "rounded" }
+                    documentation = { border = "rounded" },
                 },
                 sorting = {
                     priority_weight = 2,
                     comparators = {
-                        prioritize_functions,
+                        kind_comparator,
                         cmp.config.compare.offset,
                         cmp.config.compare.exact,
                         cmp.config.compare.score,
@@ -946,11 +927,15 @@ require("lazy").setup {
                     },
                 },
                 formatting = {
-                    format = require("lspkind").cmp_format({
-                        mode = "symbol_text",
-                        maxwidth = 50,
-                        ellipsis_char = "...",
-                    }),
+                    format = function(entry, vim_item)
+                        vim_item = require("lspkind").cmp_format({
+                            mode = "symbol_text",
+                            maxwidth = 50,
+                            ellipsis_char = "...",
+                        })(entry, vim_item)
+                        vim_item.menu = ""
+                        return vim_item
+                    end,
                 },
                 snippet = {
                     -- REQUIRED by nvim-cmp. get rid of it once we can
@@ -1086,3 +1071,8 @@ require("lazy").setup {
         end,
     },
 }
+
+-- Load base46 compiled highlights (must be after lazy.setup)
+for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
+    dofile(vim.g.base46_cache .. v)
+end
