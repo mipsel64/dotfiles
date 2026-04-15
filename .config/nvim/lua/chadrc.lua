@@ -6,6 +6,11 @@ M.base46 = {
         TelescopeMatching = { fg = "cyan" },
         TelescopeSelection = { fg = "cyan" },
         TelescopeSelectionCaret = { fg = "cyan" },
+        ["@field"] = { fg = "white" },
+        ["@property"] = { fg = "white" },
+        ["@variable.member"] = { fg = "white" },
+        ["@parameter"] = { fg = "white" },
+        ["@variable.parameter"] = { fg = "white" },
     },
 }
 
@@ -32,7 +37,9 @@ M.ui = {
             end,
         },
     },
-    telescope = { style = "bordered" }
+    telescope = { style = "bordered" },
+
 }
 
+M.lsp = { signature = false }
 return M

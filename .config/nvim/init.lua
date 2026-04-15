@@ -7,6 +7,9 @@ vim.g.mapleader = " "
 -- preferences
 --
 -------------------------------------------------------------------------------
+-- set default winborder to rounded
+vim.opt.winborder = "rounded"
+
 -- never ever folding
 vim.opt.foldenable = false
 vim.opt.foldmethod = "manual"
@@ -346,7 +349,7 @@ require("lazy").setup {
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    ["cmp.entry.get_documentation"] = true,
                 },
             },
             -- you can enable a preset for easier configuration
@@ -355,7 +358,7 @@ require("lazy").setup {
                 command_palette = true,       -- position the cmdline and popupmenu together
                 long_message_to_split = true, -- long messages will be sent to a split
                 inc_rename = false,           -- enables an input dialog for inc-rename.nvim
-                lsp_doc_border = false,       -- add a border to hover docs and signature help
+                lsp_doc_border = true,        -- add a border to hover docs and signature help
             },
 
             routes = {
@@ -422,30 +425,66 @@ require("lazy").setup {
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
-        version = "v0.10",
+        branch = "main",
         config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = {
-                    "c",
-                    "lua",
-                    "vim",
-                    "vimdoc",
-                    "query",
-                    "go",
-                    "python",
-                    "bash",
-                    "regex",
-                    "yaml",
-                    "terraform",
-                    "hcl",
-                    "rust",
-                    "proto",
-                    "dockerfile",
-                    "toml"
-                },
-                sync_install = false,
-                highlight = { enable = true },
-                indent = { enable = true },
+            local parsers = {
+                'bash',
+                'c',
+                'comment',
+                'csv',
+                'diff',
+                'dockerfile',
+                'gitignore',
+                'go',
+                'json',
+                'lua',
+                'luadoc',
+                'make',
+                'markdown',
+                'markdown_inline',
+                'nginx',
+                'python',
+                'query',
+                'regex',
+                'rust',
+                'sql',
+                'templ',
+                'toml',
+                'tsv',
+                'typescript',
+                'vim',
+                'vimdoc',
+                'xml',
+                'yaml',
+                'zig',
+                "helm",
+                "terraform",
+                "hcl",
+                "proto",
+            }
+
+            require('nvim-treesitter').install(parsers)
+
+            vim.api.nvim_create_autocmd('FileType', {
+                callback = function(args)
+                    local buf, filetype = args.buf, args.match
+
+                    local language = vim.treesitter.language.get_lang(filetype)
+                    if not language then
+                        return
+                    end
+
+                    -- check if parser exists and load it
+                    if not vim.treesitter.language.add(language) then
+                        return
+                    end
+
+                    -- enables syntax highlighting and other treesitter features
+                    vim.treesitter.start(buf, language)
+
+                    -- enables treesitter based indentation
+                    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                end,
             })
         end
     },
@@ -909,8 +948,8 @@ require("lazy").setup {
                     keyword_length = 1,
                 },
                 window = {
-                    completion = { border = "rounded" },
-                    documentation = { border = "rounded" },
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
                 },
                 sorting = {
                     priority_weight = 2,
