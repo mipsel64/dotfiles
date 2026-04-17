@@ -405,6 +405,7 @@ require("lazy").setup {
             },
         },
     },
+    { "f-person/git-blame.nvim" },
     {
         "obsidian-nvim/obsidian.nvim",
         version = "*",
