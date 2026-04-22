@@ -2,24 +2,34 @@
   "$schema": "https://opencode.ai/config.json",
   "autoupdate": true,
   "plugin": ["opencode-claude-auth"],
+  "model": "anthropic/claude-opus-4-7",
+  "small_model": "anthropic/claude-haiku-4-5",
   "agent": {
     "coder": {
-        "enable1mContext": true,
-      "description": "Primary coding agent using Claude Opus 4.6",
+      "enable1mContext": false,
+      "description": "Primary coding agent using Claude Opus 4.7",
       "mode": "primary",
-      "model": "anthropic/claude-opus-4-6",
-      "temperature": 0.2,
+      "model": "anthropic/claude-opus-4-7",
       "tools": {
         "write": true,
         "edit": true,
         "bash": true
       }
     },
-    "debugger": {
-      "description": "Debug and testing agent using GPT-5.1 Codex",
+    "general": {
+      "description": "General-purpose subagent using Claude Haiku 4.5 for multi-step tasks and tool-heavy work",
       "mode": "subagent",
-      "model": "openai/gpt-5.3-codex",
-      "temperature": 0.3,
+      "model": "anthropic/claude-haiku-4-5"
+    },
+    "explore": {
+      "description": "Fast read-only codebase exploration subagent using Claude Haiku 4.5",
+      "mode": "subagent",
+      "model": "anthropic/claude-haiku-4-5"
+    },
+    "debugger": {
+      "description": "Debug and testing subagent using Claude Haiku 4.5",
+      "mode": "subagent",
+      "model": "anthropic/claude-haiku-4-5",
       "tools": {
         "write": true,
         "edit": true,
@@ -28,4 +38,3 @@
     }
   }
 }
-
