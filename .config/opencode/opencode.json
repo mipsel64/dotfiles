@@ -4,6 +4,11 @@
   "plugin": ["opencode-claude-auth"],
   "model": "anthropic/claude-opus-4-7",
   "small_model": "anthropic/claude-haiku-4-5",
+  "permission": {
+    "external_directory": {
+      "~/projects/personal/vaults/wiki/**": "allow"
+    }
+  },
   "agent": {
     "coder": {
       "enable1mContext": false,
