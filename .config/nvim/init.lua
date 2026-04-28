@@ -833,8 +833,7 @@ require("lazy").setup {
                         opts("Goto to the declaration of the symbol under the cursor"))
                     vim.keymap.set("n", "gd", vim.lsp.buf.definition,
                         opts("Goto to the definition of the symbol under the cursor"))
-                    vim.keymap.set("n", "K", function() vim.lsp.buf.hover({ border = "rounded" }) end,
-                        opts("Display hover information for symbol under cursor"))
+
                     vim.keymap.set("n", "gi", vim.lsp.buf.implementation,
                         opts("Goto the implementation of the symbol under the cursor"))
                     vim.keymap.set("n", "<C-k>", function() vim.lsp.buf.signature_help({ border = "rounded" }) end,
@@ -869,7 +868,7 @@ require("lazy").setup {
     },
     {
         'mrcjkb/rustaceanvim',
-        version = '^8',
+        version = '^9',
         lazy = false,
         config = function()
             vim.g.rustaceanvim = {
