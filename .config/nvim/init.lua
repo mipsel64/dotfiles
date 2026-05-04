@@ -382,7 +382,7 @@ require("lazy").setup {
         'akinsho/toggleterm.nvim',
         version = "*",
         opts = {
-            open_mapping = [[<F2>]],
+            open_mapping = [[<C-t>]],
             direction = 'horizontal',
             size = function(term)
                 if term.direction == "horizontal" then
