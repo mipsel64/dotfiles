@@ -232,6 +232,21 @@ vim.api.nvim_create_autocmd("BufRead", { pattern = "*.pacnew", command = "set re
 vim.api.nvim_create_autocmd("InsertLeave", { pattern = "*", command = "set nopaste" })
 -- help filetype detection (add as needed)
 --vim.api.nvim_create_autocmd('BufRead', { pattern = '*.ext', command = 'set filetype=someft' })
+-- detect Helm chart files: templates/*.yaml|*.yml|*.tpl, Chart.yaml, and *.gotmpl
+vim.filetype.add({
+    extension = {
+        gotmpl = "helm",
+    },
+    filename = {
+        ["Chart.yaml"] = "helm",
+        ["Chart.lock"] = "yaml",
+    },
+    pattern = {
+        [".*/templates/.*%.ya?ml"] = "helm",
+        [".*/templates/.*%.tpl"] = "helm",
+        ["helmfile.*%.ya?ml"] = "helm",
+    },
+})
 -- correctly classify mutt buffers
 local email = vim.api.nvim_create_augroup("email", { clear = true })
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
@@ -1049,6 +1064,7 @@ require("lazy").setup {
                     python = true,
                     bash = true,
                     yaml = true,
+                    helm = true,
                     terraform = true,
                     hcl = true,
                     rust = true,

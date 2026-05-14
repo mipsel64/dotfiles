@@ -201,12 +201,12 @@ run = [
   "move-node-to-workspace 1"
 ]
 
-[[on-window-detected]]
-if.app-id = "org.alacritty"
-run = [
-  "layout floating",
-  "move-node-to-workspace 1"
-]
+#[[on-window-detected]]
+#if.app-id = "org.alacritty"
+#run = [
+#  "layout floating",
+#  "move-node-to-workspace 1"
+#]
 
 [[on-window-detected]]
 if.app-name-regex-substring= 'Telegram'

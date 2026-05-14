@@ -44,6 +44,7 @@ alias coder="code --remote=ssh-remote+dev.remote"
 alias unset="set --erase"
 alias bat="batcat"
 alias oc="opencode"
+alias cld="claude"
 
 ## Minikube
 alias mkk="minikube kubectl --"

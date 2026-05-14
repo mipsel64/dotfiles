@@ -28,10 +28,8 @@ selection-foreground = #c4b89f
 cursor-color = #dbbf84
 
 # Font settings
-font-size = 13
-font-family = "DejavuSansM Nerd Font"
-font-feature = -calt, -liga, -dlig
-macos-non-native-fullscreen = visible-menu
+font-size = 14
+font-family = "JetbrainsMono Nerd Font"
 macos-option-as-alt = left
 mouse-hide-while-typing = true
 
@@ -42,7 +40,6 @@ shell-integration-features = no-cursor
 
 
 # Cell Height
-adjust-cell-height = 20%
 grapheme-width-method = "unicode"
 
 # Enable link on hover (MacOS: Cmd, Linux: Ctrl)
@@ -51,7 +48,6 @@ link-url = true
 
 macos-option-as-alt = true
 # Keybindings
-
 
 # This doesn't help. Aerospace treats each ghostty tab as a separate window
 # lead to when press alt+h/l, aerospace just change to the next/previous tab
