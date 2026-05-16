@@ -4,6 +4,7 @@ tmux.conf|s|.tmux.conf
 .config/ghostty|s|
 .config/borders|s|
 .config/i3|s|
+.config/i3status-rust|s|
 .config/opencode/opencode.json|s|
 .config/opencode/tui.json|s|
 config.fish|s|.config/fish/config.fish

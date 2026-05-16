@@ -1,1 +1,19 @@
 xset r rate 200 40
+
+# HiDPI scaling for 4K @ 31.5" (~140 DPI native).
+# 144 = 1.5x of the X11 default 96 DPI, the sweet spot for this panel.
+xrandr --dpi 144
+xrdb -merge <<< 'Xft.dpi: 144
+Xcursor.size: 32'
+
+# GTK/Qt apps that respect Xft.dpi (don't double-scale).
+export GDK_DPI_SCALE=1
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+# Steam ignores Xft.dpi; this is the only knob that scales its UI.
+# export STEAM_FORCE_DESKTOPUI_SCALING=1.5
+
+# Override the per-window scale factor used by winit (alacritty).
+# 1.0 pins alacritty to 96-DPI rendering so font size=14 stays visually small
+# while the rest of the system still gets the 1.5x Xft.dpi scaling.
+export WINIT_X11_SCALE_FACTOR=1.0
