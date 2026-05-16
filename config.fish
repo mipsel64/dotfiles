@@ -301,6 +301,7 @@ if test -f "$HOME/config.extra.fish"
     source "$HOME/config.extra.fish"
 end
 
+export PATH="$HOME/.local/bin:$PATH"
 
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.

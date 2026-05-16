@@ -1,17 +1,70 @@
 [font]
 size = 14.0
-normal.family = "CodeNewRoman Nerd Font"
+normal.family = "JetbrainsMono Nerd Font"
 
 [window]
 decorations = "Full"
 opacity = 0.97
+# macOS-only; ignored on Linux
 option_as_alt = "Both"
 
+[mouse]
+hide_when_typing = true
 
 [colors]
 draw_bold_text_with_bright_colors = true
 
+[colors.primary]
+background = "#1f2122"
+foreground = "#bdb198"
+
+[colors.selection]
+text = "#c4b89f"
+background = "#414344"
+
+[colors.cursor]
+cursor = "#dbbf84"
+text = "CellBackground"
+
+# Gruvchad theme
+[colors.normal]
+black   = "#2d2f30"
+red     = "#d97368"
+green   = "#adb46a"
+yellow  = "#dbbf84"
+blue    = "#89ada3"
+magenta = "#c68a9c"
+cyan    = "#91af81"
+white   = "#bdb198"
+
+[colors.bright]
+black   = "#414344"
+red     = "#d97368"
+green   = "#adb46a"
+yellow  = "#dbbf84"
+blue    = "#89ada3"
+magenta = "#c68a9c"
+cyan    = "#91af81"
+white   = "#c4b89f"
+
 [cursor]
-style = {shape="Block", blinking = "Always"}
+style = { shape = "Block", blinking = "Always" }
 
+# Scrolling keybindings
+[[keyboard.bindings]]
+key = "PageUp"
+action = "ScrollPageUp"
 
+[[keyboard.bindings]]
+key = "PageDown"
+action = "ScrollPageDown"
+
+[[keyboard.bindings]]
+key = "PageUp"
+mods = "Shift"
+action = "ScrollPageUp"
+
+[[keyboard.bindings]]
+key = "PageDown"
+mods = "Shift"
+action = "ScrollPageDown"

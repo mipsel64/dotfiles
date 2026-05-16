@@ -3,7 +3,9 @@ tmux.conf|s|.tmux.conf
 .config/nvim|s|
 .config/ghostty|s|
 .config/borders|s|
+.config/i3|s|
 .config/opencode/opencode.json|s|
 .config/opencode/tui.json|s|
 config.fish|s|.config/fish/config.fish
 alacritty.toml|s|.alacritty.toml
+.xprofile|s|
