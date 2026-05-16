@@ -31,11 +31,6 @@ critical_cpu = 90
 block = "memory"
 format = " $icon $mem_used_percents "
 
-[[block]]
-block = "load"
-format = " $icon $1m "
-interval = 5
-
 # Left-click: toggle mute. Scroll up/down: adjust volume. Both are defaults.
 [[block]]
 block = "sound"
@@ -44,5 +39,5 @@ format = " $icon {$volume.eng(w:2)|MUTED} "
 
 [[block]]
 block = "time"
-format = " $timestamp.datetime(f:'%a %F %T') "
-interval = 1
+format = " $timestamp.datetime(f:'%a %F %R') "
+interval = 60
