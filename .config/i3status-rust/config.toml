@@ -11,6 +11,28 @@ format_alt = " $icon {$ssid|wired} {$signal_strength|} {$ip|—} "
 interval = 5
 
 [[block]]
+block = "custom"
+format = " $icon $text.pango-str() "
+command = '''
+state=$(tailscale status --json 2>/dev/null | awk -F'"' '/"BackendState"/{print $4; exit}')
+if [ "$state" = "Running" ]; then
+  ip=$(tailscale ip -4 2>/dev/null | head -n1)
+  printf "{\"icon\":\"net_vpn\",\"text\":\"<span foreground='#a6e3a1'>%s</span>\"}" "$ip"
+else
+  printf "{\"icon\":\"net_vpn\",\"text\":\"<span foreground='#808080'>Disconnected</span>\"}"
+fi
+'''
+shell = "sh"
+json = true
+interval = 5
+[[block.click]]
+button = "left"
+cmd = "tailscale up"
+[[block.click]]
+button = "right"
+cmd = "tailscale down"
+
+[[block]]
 block = "disk_space"
 path = "/"
 info_type = "available"

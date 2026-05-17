@@ -22,3 +22,19 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 # 1.0 pins alacritty to 96-DPI rendering so font size=14 stays visually small
 # while the rest of the system still gets the 1.5x Xft.dpi scaling.
 export WINIT_X11_SCALE_FACTOR=1.0
+
+# fcitx5 input method (Vietnamese via fcitx5-bamboo).
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export SDL_IM_MODULE=fcitx
+export INPUT_METHOD=fcitx
+
+# Bridge StatusNotifierItem tray icons (Trayscale et al.) to i3bar's XEmbed tray.
+snixembed --fork &
+
+# Trayscale: GTK panel for Tailscale in the system tray.
+trayscale --hide-window &
+
+# fcitx5 daemon for Vietnamese input.
+fcitx5 -d &
