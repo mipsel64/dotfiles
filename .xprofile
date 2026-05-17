@@ -1,5 +1,10 @@
 xset r rate 200 40
 
+# Idle timeout: blank screen + DPMS off after 1h (3600s).
+# light-locker locks the session when the screensaver kicks in.
+xset s 3600 3600
+xset dpms 3600 3600 3600
+
 # HiDPI scaling for 4K @ 31.5" (~140 DPI native).
 # 144 = 1.5x of the X11 default 96 DPI, the sweet spot for this panel.
 xrandr --dpi 144
