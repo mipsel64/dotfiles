@@ -194,7 +194,10 @@ bindsym Mod1+y mode "$mode_system"
 
 
 bindsym Mod1+d exec rofi -show drun
-bindsym Mod1+Tab exec rofi -show window
+
+# Windows-style Alt+Tab: previous window pre-selected, hold Mod1 and
+# tap Tab / Shift+Tab to cycle, Enter to switch.
+bindsym Mod1+Tab exec --no-startup-id rofi -show window -selected-row 1 -kb-row-down 'Alt+Tab' -kb-row-up 'Alt+Shift+Tab'
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
