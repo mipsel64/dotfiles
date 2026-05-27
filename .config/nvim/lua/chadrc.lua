@@ -2,6 +2,7 @@ local M = {}
 
 M.base46 = {
     theme = "gruvchad",
+    transparency = true,
     hl_override = {
         TelescopeMatching = { fg = "cyan" },
         TelescopeSelection = { fg = "cyan" },

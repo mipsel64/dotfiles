@@ -107,6 +107,11 @@ if test -f $HOME/.cargo/env.fish
   source "$HOME/.cargo/env.fish"
 end
 
+## Solana
+if test -d $HOME/.local/share/solana/install/active_release/bin
+  fish_add_path $HOME/.local/share/solana/install/active_release/bin
+end
+
 
 ## [C]hange [D]irectory to [G]it [D]irectory
 ## if no input => go to the repo root
