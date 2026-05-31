@@ -1,6 +1,7 @@
 [font]
 size = 14.0
-normal.family = "DejavuSansM Nerd Font"
+normal.family = "CaskaydiaCove Nerd Font"
+normal.style = "Regular"
 
 [window]
 decorations = "Full"
