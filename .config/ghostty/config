@@ -62,3 +62,7 @@ keybind = shift+page_up=adjust_selection:page_up
 keybind = shift+page_down=adjust_selection:page_down
 
 shell-integration-features = ssh-terminfo,ssh-env
+
+copy-on-select = clipboard
+clipboard-read = allow
+clipboard-write = allow
