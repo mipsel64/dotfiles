@@ -28,7 +28,7 @@ selection-foreground = #c4b89f
 cursor-color = #dbbf84
 
 # Font settings
-font-size = 14
+font-size = 13
 font-family = "JetbrainsMono Nerd Font"
 macos-option-as-alt = left
 mouse-hide-while-typing = true
