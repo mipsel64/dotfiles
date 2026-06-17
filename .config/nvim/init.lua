@@ -74,6 +74,18 @@ vim.opt.listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 -- prevent override buffer to system clipboard
 vim.opt.clipboard = ""
 
+vim.g.clipboard = {
+    name = 'OSC 52',
+    copy = {
+        ['+'] = require('vim.ui.clipboard.osc52').copy '+',
+        ['*'] = require('vim.ui.clipboard.osc52').copy '*',
+    },
+    paste = {
+        ['+'] = require('vim.ui.clipboard.osc52').paste '+',
+        ['*'] = require('vim.ui.clipboard.osc52').paste '*',
+    },
+}
+
 -- Use Ctrl+c to copy system clipboard
 vim.keymap.set("v", "<C-c>", "\"+y<CR>", { desc = "Copy selected text to system clipboard" })
 

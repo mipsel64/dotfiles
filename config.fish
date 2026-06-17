@@ -313,6 +313,24 @@ end
 
 export PATH="$HOME/.local/bin:$PATH"
 
+# One persistent ssh-agent on a fixed socket, shared by every shell, so the key
+# is loaded once and survives across sessions/reboots (no passphrase prompt on
+# every pull/push). `--apple-use-keychain` stores the passphrase in the macOS
+# Keychain on first load and reads it back silently afterwards.
+if status is-interactive; and test -f "$HOME/.ssh/id_ed25519"
+    set -gx SSH_AUTH_SOCK "$HOME/.ssh/agent.sock"
+    ssh-add -l >/dev/null 2>&1
+    set -l _ssh_state $status
+    if test $_ssh_state -ne 0
+        if test $_ssh_state -eq 2
+            # No agent listening on the socket — start a fresh one.
+            command rm -f "$SSH_AUTH_SOCK"
+            ssh-agent -a "$SSH_AUTH_SOCK" >/dev/null 2>&1
+        end
+        ssh-add --apple-use-keychain "$HOME/.ssh/id_ed25519" 2>/dev/null
+    end
+end
+
 # Added by OrbStack: command-line tools and integration
 # This won't be added again if you remove it.
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
