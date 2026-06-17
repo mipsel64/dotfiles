@@ -250,6 +250,11 @@ function pbpaste -d "pbpaste over SSH"
     end
 end
 
+if test -f ~/.nvmrc
+    nvm use $(cat ~/.nvmrc) > /dev/null
+end
+
+
 ## Ranger cd
 function ranger-cd
     set dir (mktemp -t ranger_cd.XXX)

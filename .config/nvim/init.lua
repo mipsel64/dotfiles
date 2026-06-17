@@ -1,4 +1,4 @@
--- always set leader first!
+-- always set leader first!lua
 vim.keymap.set("n", "<Space>", "<Nop>", { silent = true })
 vim.g.mapleader = " "
 
@@ -11,9 +11,9 @@ vim.g.mapleader = " "
 vim.opt.winborder = "rounded"
 
 -- never ever folding
-vim.opt.foldenable = false
-vim.opt.foldmethod = "manual"
-vim.opt.foldlevelstart = 99
+--vim.opt.foldenable = false
+--vim.opt.foldmethod = "manual"
+--vim.opt.foldlevelstart = 99
 -- very basic "continue indent" mode (autoindent) is always on in neovim
 -- could try smartindent/cindent, but meh.
 -- vim.opt.cindent = true
