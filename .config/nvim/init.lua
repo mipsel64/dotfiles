@@ -485,10 +485,13 @@ require("lazy").setup {
                 'xml',
                 'yaml',
                 'zig',
-                "helm",
-                "terraform",
-                "hcl",
-                "proto",
+                'helm',
+                'terraform',
+                'hcl',
+                'proto',
+                'html',
+                'latex',
+                'typst'
             }
 
             require('nvim-treesitter').install(parsers)
@@ -697,6 +700,10 @@ require("lazy").setup {
     {
         "j-hui/fidget.nvim",
         opts = {},
+    },
+    {
+        'MeanderingProgrammer/render-markdown.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-mini/mini.nvim' },
     },
     -- LSP
     {
