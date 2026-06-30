@@ -95,7 +95,10 @@ else if test -d /opt/homebrew # MacOS
 	set -gx HOMEBREW_REPOSITORY "$HOMEBREW_PREFIX/homebrew"
 	set -gx HOMEBREW_CASKROOM "$HOMEBREW_PREFIX/Caskroom"
 end
-fish_add_path -gP "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin";
+# -m (move) ensures Homebrew's bin precedes system paths like /usr/bin even
+# when it's already present in the inherited PATH — so brew's python3 (3.14)
+# shadows Apple's /usr/bin/python3 (3.9).
+fish_add_path -gmP "$HOMEBREW_PREFIX/bin" "$HOMEBREW_PREFIX/sbin";
 fish_add_path -gP "$HOMEBREW_PREFIX/share/google-cloud-sdk/bin";
 
 

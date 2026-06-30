@@ -17,6 +17,9 @@ after-startup-command = []
 # Start AeroSpace at login
 start-at-login = true
 
+# Enable auto reload config
+auto-reload-config = true
+
 # Normalizations. See: https://nikitabobko.github.io/AeroSpace/guide#normalization
 enable-normalization-flatten-containers = true
 enable-normalization-opposite-orientation-for-nested-containers = true
@@ -200,13 +203,6 @@ run = [
   "layout floating",
   "move-node-to-workspace 1"
 ]
-
-#[[on-window-detected]]
-#if.app-id = "org.alacritty"
-#run = [
-#  "layout floating",
-#  "move-node-to-workspace 1"
-#]
 
 [[on-window-detected]]
 if.app-name-regex-substring= 'Telegram'
