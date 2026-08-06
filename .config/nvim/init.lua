@@ -545,8 +545,42 @@ require("lazy").setup {
     version = "^4",
     dependencies = 'nvim-tree/nvim-web-devicons',
     config = function()
-      require('bufferline').setup {
+      require('bufferline').setup {}
+    end
+  },
+  {
+    'stevearc/oil.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-web-devicons',
+      'MunifTanjim/nui.nvim',
+    },
+    config = function()
+      require('oil').setup {
+        keymaps = {
+          ["g?"] = { "actions.show_help", mode = "n" },
+          ["<CR>"] = "actions.select",
+          ["<C-s>"] = { "actions.select", opts = { vertical = true } },
+          ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
+          ["<C-t>"] = { "actions.select", opts = { tab = true } },
+          ["gp"] = "actions.preview",
+          ["<C-c>"] = { "actions.close", mode = "n" },
+          ["<C-l>"] = "actions.refresh",
+          ["-"] = { "actions.parent", mode = "n" },
+          ["_"] = { "actions.open_cwd", mode = "n" },
+          ["`"] = { "actions.cd", mode = "n" },
+          ["g~"] = { "actions.cd", opts = { scope = "tab" }, mode = "n" },
+          ["gs"] = { "actions.change_sort", mode = "n" },
+          ["gx"] = "actions.open_external",
+          ["g."] = { "actions.toggle_hidden", mode = "n" },
+          ["g\\"] = { "actions.toggle_trash", mode = "n" },
+        },
+        use_default_keymaps = false,
+        view_options = {
+          show_hidden = true,
+        },
       }
+      vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end
   },
   {
@@ -557,6 +591,7 @@ require("lazy").setup {
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
     },
+    enabled = false, -- Temporary disable to try oil.nvim
     lazy = false,
     keys = {
       { '<C-\\>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
@@ -681,12 +716,22 @@ require("lazy").setup {
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
       vim.keymap.set("n", "<leader>d", ":bd<CR>")
 
+      local actions = require 'telescope.actions'
+
+      -- <C-p> closes the picker instead of moving the selection, so the
+      -- same key toggles find_files open and shut.
       local find_files = function()
-        builtin.find_files { hidden = true }
+        builtin.find_files {
+          hidden = true,
+          attach_mappings = function(_, map)
+            map({ 'i', 'n' }, '<C-p>', actions.close)
+            return true
+          end,
+        }
       end
 
       vim.keymap.set('n', '<leader>ff', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
-      vim.keymap.set('n', '<C-P>', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
+      vim.keymap.set('n', '<C-p>', find_files, { desc = '[Find] [F]iles', silent = true, noremap = true })
 
       vim.keymap.set('n', '<leader>/', function()
         builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {

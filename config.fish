@@ -45,6 +45,7 @@ alias unset="set --erase"
 alias bat="batcat"
 alias oc="opencode"
 alias cld="claude"
+alias gauth 'gcloud auth login --update-adc'
 
 ## Minikube
 alias mkk="minikube kubectl --"
@@ -352,7 +353,8 @@ set -gx UV_SYSTEM_CERTS true
 # Allow Ruby Bundler to trust the SafeChain MITM CA while preserving public roots.
 set -gx BUNDLE_SSL_CA_CERT "/Library/Application Support/AikidoSecurity/EndpointProtection/run/endpoint-protection-ruby-combined-ca.pem"
 # aikido-endpoint-ruby-cert-config-end
-# aikido-endpoint-curl-cert-config-start
+# aikido-endpoint-curl-cert-config-v2-start
 # Allow curl and other OpenSSL-linked tools to trust the SafeChain MITM CA while preserving the system roots.
+set -gx SSL_CERT_FILE "/Library/Application Support/AikidoSecurity/EndpointProtection/run/endpoint-protection-openssl-combined-ca.pem"
 set -gx CURL_CA_BUNDLE "/Library/Application Support/AikidoSecurity/EndpointProtection/run/endpoint-protection-openssl-combined-ca.pem"
-# aikido-endpoint-curl-cert-config-end
+# aikido-endpoint-curl-cert-config-v2-end
