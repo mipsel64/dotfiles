@@ -580,6 +580,8 @@ require("lazy").setup {
           show_hidden = true,
         },
       }
+
+      -- Binding oil
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end
   },
@@ -591,7 +593,6 @@ require("lazy").setup {
       'nvim-tree/nvim-web-devicons',
       'MunifTanjim/nui.nvim',
     },
-    enabled = false, -- Temporary disable to try oil.nvim
     lazy = false,
     keys = {
       { '<C-\\>', ':Neotree reveal<CR>', desc = 'NeoTree reveal', silent = true },
@@ -1204,4 +1205,16 @@ require("lazy").setup {
 -- Load base46 compiled highlights (must be after lazy.setup)
 for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
   dofile(vim.g.base46_cache .. v)
+end
+
+-- base46's cached `term` chunk maps ANSI slots by base16 convention, which
+-- everforest doesn't follow. Let the active theme supply its own palette.
+local ok_cfg, nvconfig = pcall(require, "nvconfig")
+if ok_cfg then
+  local ok_theme, theme = pcall(require, "themes." .. nvconfig.base46.theme)
+  if ok_theme and theme.term_colors then
+    for i, c in ipairs(theme.term_colors) do
+      vim.g["terminal_color_" .. (i - 1)] = c
+    end
+  end
 end

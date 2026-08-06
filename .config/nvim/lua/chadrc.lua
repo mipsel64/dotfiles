@@ -1,17 +1,12 @@
 local M = {}
 
 M.base46 = {
-  theme = "gruvchad",
-  transparency = true,
+  theme = "myforest",
+  transparency = false,
   hl_override = {
-    TelescopeMatching = { fg = "cyan" },
-    TelescopeSelection = { fg = "cyan" },
-    TelescopeSelectionCaret = { fg = "cyan" },
-    ["@field"] = { fg = "white" },
-    ["@property"] = { fg = "white" },
-    ["@variable.member"] = { fg = "white" },
-    ["@parameter"] = { fg = "white" },
-    ["@variable.parameter"] = { fg = "white" },
+    -- TelescopeMatching = { fg = "cyan" },
+    -- TelescopeSelection = { fg = "cyan" },
+    -- TelescopeSelectionCaret = { fg = "cyan" },
   },
 }
 
