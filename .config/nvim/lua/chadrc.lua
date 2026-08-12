@@ -2,7 +2,7 @@ local M = {}
 
 M.base46 = {
   theme = "myforest",
-  transparency = false,
+  transparency = true,
   hl_override = {
     -- TelescopeMatching = { fg = "cyan" },
     -- TelescopeSelection = { fg = "cyan" },
