@@ -131,6 +131,10 @@ vim.keymap.set("v", "<C-r>", "\"hy:%s/<C-r>h//gc<left><left><left>", { desc = "R
 vim.keymap.set("n", "<leader>;", "<cmd>Buffers<cr>")
 -- quick-save
 vim.keymap.set("n", "<leader>w", "<cmd>w<cr>")
+-- new empty buffers
+vim.keymap.set("n", "<leader>bb", "<cmd>enew<cr>", { desc = "New buffer in current window" })
+vim.keymap.set("n", "<leader>bn", "<cmd>new<cr>", { desc = "New buffer in horizontal split" })
+vim.keymap.set("n", "<leader>bv", "<cmd>vnew<cr>", { desc = "New buffer in vertical split" })
 -- make missing : less annoying
 vim.keymap.set("n", ";", ":")
 
@@ -567,11 +571,18 @@ require("lazy").setup {
         view_options = {
           show_hidden = true,
         },
+        win_options = {
+          signcolumn = "yes:2",
+        },
       }
 
       -- Binding oil
       vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end
+  },
+  {
+    "refractalize/oil-git-status.nvim",
+    config = true,
   },
   {
     'nvim-neo-tree/neo-tree.nvim',
@@ -592,7 +603,7 @@ require("lazy").setup {
         filtered_items = {
           visible = true,
           hide_dotfiles = false,
-          never_show = { ".git", ".DS_Store" },
+          never_show = { ".DS_Store" },
         },
         window = {
           mappings = {

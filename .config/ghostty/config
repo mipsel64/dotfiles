@@ -14,7 +14,7 @@ cursor-style = block
 cursor-style-blink = true
 shell-integration-features = no-cursor
 
-background-opacity = 0.97
+background-opacity = 0.95
 background-blur = true
 
 # Titlebar settings
