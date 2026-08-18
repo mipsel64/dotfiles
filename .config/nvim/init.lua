@@ -10,6 +10,23 @@ vim.g.mapleader = " "
 -- set default winborder to rounded
 vim.opt.winborder = "rounded"
 
+-- nvim's default guicursor asks for a steady cursor and resets to steady on
+-- exit, overriding Ghostty's cursor-style-blink. Request blinking explicitly.
+vim.opt.guicursor = table.concat({
+  "n-v-c:block-blinkwait500-blinkoff500-blinkon500",
+  "i-ci-ve:ver25-blinkwait500-blinkoff500-blinkon500",
+  "r-cr:hor20-blinkwait500-blinkoff500-blinkon500",
+  "o:hor50",
+}, ",")
+
+-- nvim emits the terminfo Se capability on exit; outside tmux that is a hard
+-- \27[2 q (steady). Restore a blinking block for the shell prompt.
+vim.api.nvim_create_autocmd("VimLeave", {
+  callback = function()
+    io.write("\27[1 q")
+  end,
+})
+
 -- never ever folding
 --vim.opt.foldenable = false
 --vim.opt.foldmethod = "manual"

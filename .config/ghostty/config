@@ -2,20 +2,20 @@ config-file = ?~/.ghostty
 
 window-theme = "system"
 shell-integration = fish
+# no-cursor: cursor shape stays Ghostty's, not fish's
+shell-integration-features = no-cursor,ssh-terminfo,ssh-env
 
 # Font settings
 font-size = 13
 font-family = "Maple Mono Normal NF"
-macos-option-as-alt = left
 mouse-hide-while-typing = true
 
 # Cursor settings
 cursor-style = block
 cursor-style-blink = true
-shell-integration-features = no-cursor
 
-background-opacity = 0.95
-background-blur = true
+# Colors: Terminal.app Basic profile, dark variant
+theme = "Terminal Basic Dark"
 
 # Titlebar settings
 macos-titlebar-style = native
@@ -41,8 +41,6 @@ keybind = page_up=scroll_page_up
 keybind = page_down=scroll_page_down
 keybind = shift+page_up=adjust_selection:page_up
 keybind = shift+page_down=adjust_selection:page_down
-
-shell-integration-features = ssh-terminfo,ssh-env
 
 copy-on-select = clipboard
 clipboard-read = allow
