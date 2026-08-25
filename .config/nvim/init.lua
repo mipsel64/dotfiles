@@ -27,10 +27,11 @@ vim.api.nvim_create_autocmd("VimLeave", {
   end,
 })
 
--- never ever folding
---vim.opt.foldenable = false
---vim.opt.foldmethod = "manual"
---vim.opt.foldlevelstart = 99
+-- treesitter folds; only nvim's lua ftplugin sets foldexpr, so set it globally
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- open files fully unfolded, then fold on demand with za
+vim.opt.foldlevelstart = 99
 -- very basic "continue indent" mode (autoindent) is always on in neovim
 -- could try smartindent/cindent, but meh.
 -- vim.opt.cindent = true
