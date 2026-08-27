@@ -3,16 +3,21 @@ local M = {}
 local sep_l = "  "
 local sep_r = "  "
 
--- flat statusline: white text, transparent bg, arrows only as shape
-local stl_hl = {}
+-- statusline: every colored block becomes colored text on a transparent bar
+local stl_hl = { StatusLine = { bg = "NONE" }, StatusLineNC = { bg = "NONE" } }
 for _, g in ipairs {
-  "StatusLine", "St_gitIcons", "St_Lsp", "St_LspMsg", "St_EmptySpace", "ST_EmptySpace",
-  "St_file", "St_file_sep", "St_cwd_icon", "St_cwd_text", "St_cwd_sep",
-  "St_pos_sep", "St_pos_icon", "St_pos_text",
-  "St_lspError", "St_lspWarning", "St_LspHints", "St_LspInfo",
+  "St_gitIcons", "St_Lsp", "St_LspMsg", "St_file", "St_cwd_sep",
+  "St_pos_sep", "St_pos_text", "St_lspError", "St_lspWarning", "St_LspHints", "St_LspInfo",
 } do
-  stl_hl[g] = { fg = "white", bg = "NONE", bold = false }
+  stl_hl[g] = { bg = "NONE" }
 end
+
+-- these carried their color in the bg, so it has to move to the fg
+stl_hl.St_cwd_icon = { fg = "red", bg = "NONE" }
+stl_hl.St_cwd_text = { fg = "red", bg = "NONE" }
+stl_hl.St_pos_icon = { fg = "green", bg = "NONE" }
+stl_hl.St_file_sep = { fg = "white", bg = "NONE" }
+
 for m, col in pairs {
   Normal = "nord_blue",
   Visual = "cyan",
@@ -32,7 +37,6 @@ M.base46 = {
   theme = "myforest",
   transparency = true,
   hl_override = stl_hl,
-  hl_add = { ST_EmptySpace = { fg = "white", bg = "NONE" } },
 }
 
 M.ui = {
@@ -45,7 +49,7 @@ M.ui = {
 
   statusline = {
     enabled = true,
-    theme = "default", -- "minimal" hardcodes block separators, arrow is ignored there
+    theme = "default",
     separator_style = { left = sep_l, right = sep_r },
     order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "noice", "lsp", "cwd", "cursor" },
     modules = {
