@@ -14,8 +14,7 @@ mouse-hide-while-typing = true
 cursor-style = block
 cursor-style-blink = true
 
-# Colors: Terminal.app Basic profile, dark variant
-theme = "Terminal Basic Dark"
+theme = kintsugi_flared
 
 # Titlebar settings
 macos-titlebar-style = native

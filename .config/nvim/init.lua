@@ -433,6 +433,7 @@ require("lazy").setup {
     opts = {
       open_mapping = [[<C-t>]],
       direction = 'horizontal',
+      shade_terminals = false,
       size = function(term)
         if term.direction == "horizontal" then
           return 20
@@ -1224,14 +1225,17 @@ for _, v in ipairs(vim.fn.readdir(vim.g.base46_cache)) do
   dofile(vim.g.base46_cache .. v)
 end
 
--- base46's cached `term` chunk maps ANSI slots by base16 convention, which
--- everforest doesn't follow. Let the active theme supply its own palette.
-local ok_cfg, nvconfig = pcall(require, "nvconfig")
-if ok_cfg then
-  local ok_theme, theme = pcall(require, "themes." .. nvconfig.base46.theme)
-  if ok_theme and theme.term_colors then
-    for i, c in ipairs(theme.term_colors) do
-      vim.g["terminal_color_" .. (i - 1)] = c
+-- Buffer-local colors survive NvChad reloading base46's ANSI defaults.
+vim.api.nvim_create_autocmd("TermOpen", {
+  group = vim.api.nvim_create_augroup("theme_terminal_colors", { clear = true }),
+  callback = function(args)
+    local ok_cfg, nvconfig = pcall(require, "nvconfig")
+    if not ok_cfg then return end
+    local ok_theme, theme = pcall(require, "themes." .. nvconfig.base46.theme)
+    if ok_theme and theme.term_colors then
+      for i, c in ipairs(theme.term_colors) do
+        vim.b[args.buf]["terminal_color_" .. (i - 1)] = c
+      end
     end
-  end
-end
+  end,
+})

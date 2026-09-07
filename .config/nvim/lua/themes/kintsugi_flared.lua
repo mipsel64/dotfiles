@@ -4,7 +4,7 @@
 --   #798283  types + functions + methods + module paths
 --   #BCAC8F  variables + params + fields + macros
 --   #E08542  operators only, while functions stay grey
--- Palette is 1:1 with upstream; only the capture assignment changes.
+-- Syntax colors follow upstream; terminal colors are tuned to match.
 
 local M = {}
 
@@ -165,25 +165,24 @@ M.polish_hl = {
   },
 }
 
--- ANSI palette for :terminal buffers, from kintsugi's terminal.lua. base46
--- derives these from base16 slot order, which is close but not identical.
+-- Warm ANSI accents, with muted greens and purples to keep shell output distinct.
 M.term_colors = {
   "#131314", -- 0  black
-  "#b38f8f", -- 1  red
-  "#a3be8c", -- 2  green
-  "#ebcb8b", -- 3  yellow
-  "#6c7a8a", -- 4  blue
-  "#b3a3d3", -- 5  magenta
-  "#6ac6f2", -- 6  cyan
-  "#dddddd", -- 7  white
-  "#444444", -- 8  bright black
-  "#d9a6a6", -- 9  bright red
-  "#c3de9c", -- 10 bright green
-  "#fbe4a8", -- 11 bright yellow
-  "#8fa3b3", -- 12 bright blue
-  "#d3a3d3", -- 13 bright magenta
-  "#8ac6f2", -- 14 bright cyan
-  "#ffffff", -- 15 bright white
+  keyword,   -- 1  red
+  "#989B6C", -- 2  green
+  storage,   -- 3  yellow
+  type_,     -- 4  blue
+  "#A1818E", -- 5  magenta
+  annot,     -- 6  cyan
+  fg,        -- 7  white
+  comment,   -- 8  bright black
+  func,      -- 9  bright red
+  "#B3B78B", -- 10 bright green
+  "#EBCA7B", -- 11 bright yellow
+  "#98A0A1", -- 12 bright blue
+  "#B99BA6", -- 13 bright magenta
+  "#89AAA3", -- 14 bright cyan
+  "#DDD5C5", -- 15 bright white
 }
 
 M = require("base46").override_theme(M, "kintsugi_flared")
