@@ -39,6 +39,8 @@ alias gpf="git push --force-with-lease"
 alias sd="sudo shutdown -h"
 alias todev='ssh dev.remote'
 alias tg="terragrunt"
+alias tgra="terragrunt run --all apply"
+alias tgrp="terragrunt run --all plan"
 alias tf="terraform"
 alias coder="code --remote=ssh-remote+dev.remote"
 alias unset="set --erase"

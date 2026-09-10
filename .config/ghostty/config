@@ -14,7 +14,7 @@ mouse-hide-while-typing = true
 cursor-style = block
 cursor-style-blink = true
 
-theme = kintsugi_flared
+theme = iTerm2 Tango Dark
 
 # Titlebar settings
 macos-titlebar-style = native
