@@ -34,8 +34,8 @@ for m, col in pairs {
 end
 
 M.base46 = {
-  theme = "kintsugi_flared",
-  transparency = true,
+  theme = "gruvbox",
+  transparency = false,
   hl_override = stl_hl,
 }
 

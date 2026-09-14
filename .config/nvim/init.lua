@@ -433,7 +433,7 @@ require("lazy").setup {
     opts = {
       open_mapping = [[<C-t>]],
       direction = 'horizontal',
-      shade_terminals = false,
+      shade_terminals = true,
       size = function(term)
         if term.direction == "horizontal" then
           return 20
