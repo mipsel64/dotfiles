@@ -35,7 +35,7 @@ end
 
 M.base46 = {
   theme = "gruvbox",
-  transparency = false,
+  transparency = true,
   hl_override = stl_hl,
 }
 
