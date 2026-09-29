@@ -7,7 +7,7 @@ shell-integration-features = no-cursor,ssh-terminfo,ssh-env
 
 # Font settings
 font-size = 13
-font-family = "IoskeleyMonoTerm Nerd Font Mono"
+font-family = "MesloLGM Nerd Font"
 mouse-hide-while-typing = true
 
 # Cursor settings
