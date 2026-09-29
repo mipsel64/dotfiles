@@ -93,7 +93,12 @@ vim.opt.listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 vim.opt.clipboard = ""
 
 -- Over ssh/mosh, pbcopy/wl-copy would hit the remote host's clipboard, not ours.
-if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
+-- In tmux, ask the session: panes opened before an ssh attach lack SSH_CONNECTION.
+local over_ssh = vim.env.SSH_CONNECTION or vim.env.SSH_TTY
+if vim.env.TMUX then
+  over_ssh = vim.fn.system({ "tmux", "show-environment", "SSH_CONNECTION" }):match("^SSH_CONNECTION=")
+end
+if over_ssh then
   vim.g.clipboard = "osc52"
 end
 
