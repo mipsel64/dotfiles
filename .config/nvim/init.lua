@@ -92,6 +92,11 @@ vim.opt.listchars = "tab:^ ,nbsp:¬,extends:»,precedes:«,trail:•"
 -- prevent override buffer to system clipboard
 vim.opt.clipboard = ""
 
+-- Over ssh/mosh, pbcopy/wl-copy would hit the remote host's clipboard, not ours.
+if vim.env.SSH_CONNECTION or vim.env.SSH_TTY then
+  vim.g.clipboard = "osc52"
+end
+
 -- Use Ctrl+c to copy system clipboard
 vim.keymap.set("v", "<C-c>", "\"+y<CR>", { desc = "Copy selected text to system clipboard" })
 
