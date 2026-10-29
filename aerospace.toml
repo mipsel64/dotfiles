@@ -218,6 +218,10 @@ if.app-id = 'com.tinyspeck.slackmacgap'
 run = 'move-node-to-workspace 3' # Chat
 
 [[on-window-detected]]
+if.app-id = 'com.superlogical.rex'
+run = ['move-node-to-workspace 1']
+
+[[on-window-detected]]
 if.app-id = 'com.hnc.Discord'
 run = ['move-node-to-workspace 3']
 
