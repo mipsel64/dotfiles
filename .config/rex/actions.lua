@@ -13,17 +13,20 @@ return function(tab_history)
         return
       end
       local h = data[ctx.session_id]
-      if type(h) ~= "table" then
+      if type(h) ~= "table" or type(h.history) ~= "table" then
         return
       end
-      if h.prev then
-        local view, err = rex.session.view {}
-        if not view then error(err, 0) end
-        for i, window in ipairs(view.windows) do
-          if window.window_id == h.prev then
-            rex.client.queue("client.tab.goto", { index = i })
-            return
-          end
+      local view, err = rex.session.view {}
+      if not view then error(err, 0) end
+      local open = {}
+      for i, window in ipairs(view.windows) do
+        open[window.window_id] = i
+      end
+      for i = #h.history, 1, -1 do
+        local id = h.history[i]
+        if id ~= view.active_window_id and open[id] then
+          rex.client.queue("client.tab.goto", { index = open[id] })
+          return
         end
       end
     end,
