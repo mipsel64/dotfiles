@@ -75,9 +75,8 @@ defaults write -g NSWindowShouldDragOnGesture -bool true
 # disable opening annimation
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
 
-# smaller window corner radius (1: windows, 2: panels and utility windows)
+# smaller window corner radius
 defaults write -g NSConvolutionOverride1 -float 4
-defaults write -g NSConvolutionOverride2 -float 4
 
 
 # make sure xcode already installed
