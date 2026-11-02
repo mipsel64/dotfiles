@@ -20,6 +20,11 @@ return function(leader)
   leader_bind("ctrl+k", "pane.focus.up")
   leader_bind("ctrl+l", "pane.focus.right")
 
+  leader_bind("shift+h", "pane.move.left")
+  leader_bind("shift+j", "pane.move.down")
+  leader_bind("shift+k", "pane.move.up")
+  leader_bind("shift+l", "pane.move.right")
+
   for _, dir in ipairs({ "up", "down", "left", "right" }) do
     leader_bind(dir, "pane.focus." .. dir)
     leader_bind("alt+" .. dir, "pane.resize", { direction = dir })
