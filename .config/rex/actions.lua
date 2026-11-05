@@ -19,13 +19,14 @@ return function(tab_history)
       local view, err = rex.session.view {}
       if not view then error(err, 0) end
       local open = {}
-      for i, window in ipairs(view.windows) do
-        open[window.window_id] = i
+      for _, window in ipairs(view.windows) do
+        open[window.window_id] = true
       end
       for i = #h.history, 1, -1 do
         local id = h.history[i]
         if id ~= view.active_window_id and open[id] then
-          rex.client.queue("client.tab.goto", { index = open[id] })
+          -- client.tab.goto counts tabs across all sessions in the sidebar, so select by id.
+          rex.client.queue("session.select", { session_id = ctx.session_id, window_id = id })
           return
         end
       end
