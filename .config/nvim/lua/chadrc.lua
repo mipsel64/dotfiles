@@ -7,7 +7,7 @@ local sep_r = "  "
 local stl_hl = { StatusLine = { bg = "NONE" }, StatusLineNC = { bg = "NONE" } }
 for _, g in ipairs {
   "St_gitIcons", "St_Lsp", "St_LspMsg", "St_file", "St_cwd_sep",
-  "St_pos_sep", "St_pos_text", "St_lspError", "St_lspWarning", "St_LspHints", "St_LspInfo",
+  "St_pos_sep", "St_pos_text", "St_LspInfo",
 } do
   stl_hl[g] = { bg = "NONE" }
 end
@@ -17,6 +17,9 @@ stl_hl.St_cwd_icon = { fg = "red", bg = "NONE" }
 stl_hl.St_cwd_text = { fg = "red", bg = "NONE" }
 stl_hl.St_pos_icon = { fg = "green", bg = "NONE" }
 stl_hl.St_file_sep = { fg = "white", bg = "NONE" }
+stl_hl.St_lspError = { fg = "red", bg = "NONE" }
+stl_hl.St_lspWarning = { fg = "orange", bg = "NONE" }
+stl_hl.St_LspHints = { fg = "blue", bg = "NONE" }
 
 for m, col in pairs {
   Normal = "nord_blue",
@@ -51,7 +54,7 @@ M.ui = {
     enabled = true,
     theme = "default",
     separator_style = { left = sep_l, right = sep_r },
-    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "diagnostics", "noice", "lsp", "cwd", "cursor" },
+    order = { "mode", "file", "git", "%=", "lsp_msg", "%=", "noice", "lsp", "diagnostics", "cwd", "cursor" },
     modules = {
       -- upstream emits two separators in a row; fine for solid arrows, doubled-up for chevrons
       mode = function()
@@ -69,6 +72,18 @@ M.ui = {
           return "%#St_lspError# ● recording " .. reg .. " "
         end
         return ""
+      end,
+
+      diagnostics = function()
+        local c = vim.diagnostic.count(require("nvchad.stl.utils").stbufnr())
+        local s = vim.diagnostic.severity
+        local out = ""
+        for _, k in ipairs { { s.ERROR, "St_lspError", "E" }, { s.WARN, "St_lspWarning", "W" }, { s.HINT, "St_LspHints", "H" } } do
+          if (c[k[1]] or 0) > 0 then
+            out = out .. "%#" .. k[2] .. "#" .. k[3] .. ":" .. c[k[1]] .. " "
+          end
+        end
+        return out == "" and "" or "%#St_file_sep#" .. sep_l .. out
       end,
     },
   },
