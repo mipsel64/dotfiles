@@ -44,7 +44,16 @@ setopt EXTENDED_HISTORY SHARE_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIS
 ## ~/.local/share/zsh/site-functions (`cf complete zsh`, `ocr completion zsh`).
 fpath=(~/.local/share/zsh/site-functions $fpath)
 source ~/.orbstack/shell/init.zsh 2>/dev/null
-autoload -Uz compinit && compinit
+## Oh My Zsh runs compinit; it loads after fpath is set and before the aliases,
+## keys, and prompt below, so those win. No theme: the prompt is set below.
+export ZSH=~/.oh-my-zsh
+ZSH_THEME=""
+plugins=(git)
+if [[ -f $ZSH/oh-my-zsh.sh ]]; then
+  source $ZSH/oh-my-zsh.sh
+else
+  autoload -Uz compinit && compinit
+fi
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
@@ -101,18 +110,6 @@ alias gauth='gcloud auth login --update-adc'
 ## Minikube
 alias mkk="minikube kubectl --"
 alias mks="minikube start"
-
-## Git
-alias gst="git status"
-alias gl="git pull"
-alias gp="git push"
-alias gd="git diff"
-alias ga="git add"
-alias gb="git branch"
-alias gco="git checkout"
-alias gc="git commit"
-alias grb="git rebase"
-alias gap="git add -p"
 
 ## Tmux
 alias t="tmux"
