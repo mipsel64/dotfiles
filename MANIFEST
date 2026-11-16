@@ -9,5 +9,6 @@ tmux.conf|s|.tmux.conf
 .config/opencode/opencode.json|s|
 .config/opencode/tui.json|s|
 config.fish|s|.config/fish/config.fish
+zshrc|s|.zshrc
 alacritty.toml|s|.alacritty.toml
 .xprofile|s|

@@ -1,8 +1,8 @@
 config-file = ?~/.ghostty
 
 window-theme = "system"
-shell-integration = fish
-# no-cursor: cursor shape stays Ghostty's, not fish's
+shell-integration = zsh
+# no-cursor: cursor shape stays Ghostty's, not the shell's
 shell-integration-features = no-cursor,ssh-terminfo,ssh-env
 
 # Font settings

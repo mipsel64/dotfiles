@@ -3,6 +3,8 @@ gnu-sed
 pinentry-mac
 bash
 fish
+zsh-autosuggestions
+zsh-syntax-highlighting
 telnet
 tmux
 neovim
