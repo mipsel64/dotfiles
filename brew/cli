@@ -3,6 +3,7 @@ gnu-sed
 pinentry-mac
 bash
 fish
+zsh
 zsh-autosuggestions
 zsh-syntax-highlighting
 telnet

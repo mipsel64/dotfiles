@@ -997,6 +997,12 @@ require("lazy").setup {
           },
         },
         server = {
+          -- per-project settings stay in a private file, not in git: {"<project root>": {"cargo": {...}}}
+          settings = function(project_root, default_settings)
+            local file = vim.fn.stdpath("data") .. "/rust-analyzer-projects.json"
+            local per_project = vim.fn.filereadable(file) == 1 and vim.json.decode(table.concat(vim.fn.readfile(file), "\n")) or {}
+            return vim.tbl_deep_extend("force", default_settings, { ["rust-analyzer"] = per_project[project_root] or {} })
+          end,
           on_attach = function()
             local bufnr = vim.api.nvim_get_current_buf()
             vim.keymap.set(
