@@ -48,7 +48,13 @@ source ~/.orbstack/shell/init.zsh 2>/dev/null
 ## keys, and prompt below, so those win. No theme: the prompt is set below.
 export ZSH=~/.oh-my-zsh
 ZSH_THEME=""
-plugins=(git fzf)
+plugins=(
+  git
+  fzf
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+  zsh-history-substring-search
+)
 if [[ -f $ZSH/oh-my-zsh.sh ]]; then
   source $ZSH/oh-my-zsh.sh
 else
