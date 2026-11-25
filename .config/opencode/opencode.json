@@ -6,7 +6,8 @@
   "instructions": ["~/projects/personal/AGENTS.md"],
   "skills": [
     "~/.omp/agent/skills",
-    "~/.pi/agent/git/github.com/addyosmani/agent-skills/skills"
+    "~/.pi/agent/git/github.com/addyosmani/agent-skills/skills",
+    "~/.omp/plugins/node_modules/ecc-universal/skills"
   ],
   "agents": {
     "build": { "model": "anthropic/claude-opus-5-5#xhigh" },
