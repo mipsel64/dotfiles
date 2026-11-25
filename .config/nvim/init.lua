@@ -801,7 +801,9 @@ require("lazy").setup {
     "williamboman/mason-lspconfig.nvim",
     config = function()
       require("mason-lspconfig").setup {
-        ensure_installed = { "lua_ls", "terraformls", "gopls", "ruff" },
+        ensure_installed = { "lua_ls", "terraformls", "gopls", "ruff", "rust_analyzer" },
+        -- rustaceanvim starts rust-analyzer; a second client from here would duplicate it
+        automatic_enable = { exclude = { "rust_analyzer" } },
       }
     end
   },
@@ -901,10 +903,6 @@ require("lazy").setup {
       }
       vim.lsp.enable('terraformls')
 
-
-      -- Disable rust_analyzer from nvim-lspconfig since rustaceanvim manages it
-      vim.lsp.enable("rust_analyzer", false)
-
       -- Global mappings.
       -- See `:help vim.diagnostic.*` for documentation on any of the below functions
       vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float,
@@ -997,6 +995,12 @@ require("lazy").setup {
           },
         },
         server = {
+          -- the rustup proxy runs the rust-analyzer of the toolchain that the project pins, and old ones panic
+          -- (1.98.1: `should have ExpressionStore::expr_only`); the Mason one is the latest release
+          cmd = function()
+            local mason_ra = vim.fn.stdpath("data") .. "/mason/bin/rust-analyzer"
+            return { vim.fn.executable(mason_ra) == 1 and mason_ra or "rust-analyzer" }
+          end,
           -- per-project settings stay in a private file, not in git: {"<project root>": {"cargo": {...}}}
           settings = function(project_root, default_settings)
             local file = vim.fn.stdpath("data") .. "/rust-analyzer-projects.json"
