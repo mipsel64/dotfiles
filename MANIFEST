@@ -8,6 +8,12 @@ tmux.conf|s|.tmux.conf
 .config/i3status-rust|s|
 .config/opencode/opencode.json|s|
 .config/opencode/tui.json|s|
+.config/opencode/agents/council-astra.md|s|
+.config/opencode/agents/council-glm.md|s|
+.config/opencode/agents/scout-haiku.md|s|
+.config/opencode/agents/worker-kimi.md|s|
+.config/opencode/agents/worker-kimi-highspeed.md|s|
+.config/opencode/agents/worker-sonnet.md|s|
 config.fish|s|.config/fish/config.fish
 zshrc|s|.zshrc
 alacritty.toml|s|.alacritty.toml
