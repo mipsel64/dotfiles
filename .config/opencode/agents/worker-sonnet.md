@@ -1,5 +1,5 @@
 ---
-description: Implementation worker on Claude Sonnet 5.5 for delegated, well-specified code changes.
+description: Light implementation worker on Claude Sonnet 5.5 for simple, well-specified code changes. Use worker-sol for larger or harder tasks.
 mode: subagent
 model: anthropic/claude-sonnet-5-5#high
 ---

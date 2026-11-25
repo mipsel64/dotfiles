@@ -16,12 +16,15 @@
     "explore": { "model": "anthropic/claude-haiku-5-5" },
     "title": { "model": "anthropic/claude-haiku-5-5" }
   },
+  "mini": {
+    "tools": "show",
+    "shell_output": "show"
+  },
   "mcp": {
     "servers": {
       "notion": { "type": "remote", "url": "https://mcp.notion.com/mcp" },
       "linear": { "type": "remote", "url": "https://mcp.linear.app/mcp" },
       "artifacts": { "type": "remote", "url": "https://artifacts.m64.sh/mcp" },
-      "parallel-search": { "type": "remote", "url": "https://search.parallel.ai/mcp" },
       "pensieve": {
         "type": "remote",
         "url": "https://pensieve.tailb3334f.ts.net/mcp",
