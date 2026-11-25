@@ -1,7 +1,7 @@
 ---
 description: Read-only council reviewer on GLM-5.3 (max effort) for security and design questions.
 mode: subagent
-model: zai-coding-plan/glm-5.3#max
+model: zai-coding-plan/glm-5.4#max
 permissions:
   - { action: edit, resource: "*", effect: deny }
 ---

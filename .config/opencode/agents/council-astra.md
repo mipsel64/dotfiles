@@ -1,7 +1,7 @@
 ---
 description: Read-only council reviewer on GPT-6 Astra (xhigh effort) for design brainstorming and code review.
 mode: subagent
-model: openai/gpt-6-astra#xhigh
+model: openai/gpt-6.2-astra#xhigh
 permissions:
   - { action: edit, resource: "*", effect: deny }
 ---
