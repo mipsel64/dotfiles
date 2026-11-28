@@ -1,7 +1,7 @@
 ---
 description: Read-only scout on Claude Haiku 5.5 for fast codebase discovery and inventories.
 mode: subagent
-model: anthropic/claude-haiku-5-5
+model: claude-agent/claude-haiku-5-5
 permissions:
   - { action: edit, resource: "*", effect: deny }
 ---

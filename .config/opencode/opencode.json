@@ -2,19 +2,18 @@
   "$schema": "https://opencode.ai/config.json",
   "update": "auto",
   "model": "anthropic/claude-opus-5-5",
-  "plugins": ["opencode-claude-auth@latest"],
+  "plugins": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "instructions": ["~/projects/personal/AGENTS.md"],
   "skills": [
-    "~/.omp/agent/skills",
     "~/.pi/agent/git/github.com/addyosmani/agent-skills/skills",
     "~/.omp/plugins/node_modules/ecc-universal/skills"
   ],
   "agents": {
-    "build": { "model": "anthropic/claude-opus-5-5#xhigh" },
-    "plan": { "model": "anthropic/claude-opus-5-5#xhigh" },
+    "build": { "model": "claude-agent/claude-opus-5-5#xhigh" },
+    "plan": { "model": "claude-agent/claude-opus-5-5#xhigh" },
     "general": { "model": "openai/gpt-6.2-sol" },
-    "explore": { "model": "anthropic/claude-haiku-5-5" },
-    "title": { "model": "anthropic/claude-haiku-5-5" }
+    "explore": { "model": "claude-agent/claude-haiku-5-5" },
+    "title": { "model": "claude-agent/claude-haiku-5-5" }
   },
   "mini": {
     "tools": "show",

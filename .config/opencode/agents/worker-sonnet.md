@@ -1,7 +1,7 @@
 ---
 description: Light implementation worker on Claude Sonnet 5.5 for simple, well-specified code changes. Use worker-sol for larger or harder tasks.
 mode: subagent
-model: anthropic/claude-sonnet-5-5#high
+model: claude-agent/claude-sonnet-5-5#high
 ---
 
 You are an implementation worker. The parent gives the design; you implement it exactly, with the
